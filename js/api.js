@@ -1,7 +1,17 @@
-import Toastify from "../toastify-js/src/toastify.js";
-
+import Toasts from "../toast-notification/toast";
 const KEY = "8ae72c3e923434228e7112a400a6f402";
 // const SECRET_KEY = "708dcc5cdce2a9f9";
+
+const toasts = new Toasts({
+  offsetX: 20, // 20px
+  offsetY: 20, // 20px
+  gap: 20, // The gap size in pixels between toasts
+  width: 300, // 300px
+  timing: "ease", // See list of available CSS transition timings
+  duration: ".5s", // Transition duration
+  dimOld: true, // Dim old notifications while the newest notification stays highlighted
+  position: "top-right", // top-left | top-center | top-right | bottom-left | bottom-center | bottom-right
+});
 
 export async function fetchInitialPhotosInfo(
   searchParam = "Airplane",
@@ -17,10 +27,12 @@ export async function fetchInitialPhotosInfo(
     console.log(photo);
     return getImagesSrcArray(photo);
   } catch (error) {
-    Toastify({
-      text: `${error.message}`,
-      duration: 3000,
-    }).showToast();
+    toasts.push({
+      title: "Fetch status",
+      content: `Error: ${error.message}`,
+      style: "error",
+      dismissAfter: "3s", // s = seconds
+    });
   }
 }
 
