@@ -1,30 +1,41 @@
-import Toasts from "../toast-notification/toast";
+// Strict mode
+"use-strict";
 const KEY = "8ae72c3e923434228e7112a400a6f402";
-// const SECRET_KEY = "708dcc5cdce2a9f9";
 
-const toasts = new Toasts({
-  offsetX: 20, // 20px
-  offsetY: 20, // 20px
-  gap: 20, // The gap size in pixels between toasts
-  width: 300, // 300px
-  timing: "ease", // See list of available CSS transition timings
-  duration: ".5s", // Transition duration
-  dimOld: true, // Dim old notifications while the newest notification stays highlighted
-  position: "top-right", // top-left | top-center | top-right | bottom-left | bottom-center | bottom-right
-});
-
+// This function is for fetching initial data. This function returns an array
+// with url for each data/img
 export async function fetchInitialPhotosInfo(
   searchParam = "Airplane",
   resultPerPage = 20,
-  currentPage = 1
+  currentPage = 1,
+  toasts
 ) {
+  console.log(searchParam);
+  if (!searchParam) {
+    toasts.push({
+      title: "Fetch status",
+      content: `Please enter a valid search query`,
+      style: "error",
+      dismissAfter: "3s", // s = seconds
+      closeButton: false,
+    });
+    return;
+  }
   try {
     const res = await fetch(
       `https://api.flickr.com/services/rest?method=flickr.photos.search&api_key=${KEY}&text=${searchParam}&page=${currentPage}&per_page=${resultPerPage}&sort=date-taken-asc&format=json&nojsoncallback=1`
     );
     const { photos } = await res.json();
     const { photo } = photos;
-    console.log(photo);
+
+    toasts.push({
+      title: "Fetch status",
+      content: `Fetch successfully`,
+      style: "success",
+      dismissAfter: "1s", // s = seconds
+      closeButton: false,
+    });
+
     return getImagesSrcArray(photo);
   } catch (error) {
     toasts.push({
@@ -32,10 +43,13 @@ export async function fetchInitialPhotosInfo(
       content: `Error: ${error.message}`,
       style: "error",
       dismissAfter: "3s", // s = seconds
+      closeButton: false,
     });
   }
 }
 
+// This function is to create an array with the url for each image from
+// the initial data
 function getImagesSrcArray(photosArray) {
   const initialArray = [];
   photosArray.map((img) => {

@@ -1,5 +1,6 @@
 .toast-notification {
   position: fixed;
+  text-align: center;
   text-decoration: none;
   z-index: 999999;
   max-width: 300px;
