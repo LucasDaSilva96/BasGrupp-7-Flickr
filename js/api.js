@@ -1,3 +1,5 @@
+import Toastify from "../toastify-js/src/toastify.js";
+
 const KEY = "8ae72c3e923434228e7112a400a6f402";
 // const SECRET_KEY = "708dcc5cdce2a9f9";
 
@@ -15,7 +17,10 @@ export async function fetchInitialPhotosInfo(
     console.log(photo);
     return getImagesSrcArray(photo);
   } catch (error) {
-    throw new Error(error.message);
+    Toastify({
+      text: `${error.message}`,
+      duration: 3000,
+    }).showToast();
   }
 }
 
