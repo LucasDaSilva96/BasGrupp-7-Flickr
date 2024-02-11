@@ -86,19 +86,22 @@ video {
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* justify-content:center; */
+  flex-wrap: wrap;
+  /* min-height: 0; */
   background-color: var(--primary-light-bg-color);
+  /* justify-content:center; */
   /* flex-wrap: wrap; */
-  height: 100vh;
-}
+  /* height: 100vh; */
+ } 
+
 
 .pagination-sec_gallery {
   display: grid;
   grid-template-columns: repeat(4, minmax(auto, 276px));
-  gap: 5% 6%;
-  /* justify-content: center; */
+  gap: 10px 15px;
   align-content: center;
-  height: 100%;
+  height: min-content;
+  
 
   @media screen and (max-width: 1000px) {
     grid-template-columns: repeat(3, minmax(auto, 276px))
@@ -118,30 +121,103 @@ video {
 
 .pagination-sec_nav{
   display: flex;
-  max-width: 702px;
+  max-width: 800px;
+  gap: 36px;
   justify-content: space-between;
-  margin: 20px;
-
+  align-items: center;
+  padding: 20px;
+  font-family: "Jost", sans-serif;
+  font-size: 24px;
+  font-weight: bold;
+  /* min-height: 0; */
+  height: 110px;
 }
 
 .pagination-sec_btn {
-  height: 84px;
+  height: 100%;
   width: 42px;
   border: none;
   background: transparent;
-  background-size: cover;
+  background-size: contain;
+  background-repeat: no-repeat;
 
   &:hover {
     cursor: pointer;
+  }
+
+  @media screen and (max-width: 900px) { 
+    width: 80%;
   }
 }
 
 .--btn-left {
   background-image: url(images/arrow-left.svg);
+  width: 60px;
+  /* height: 94px; */
+
+  &:active, &:hover {
+    background-image: url(images/arrow-left-active.svg);
+  }
 }
 
 .--btn-right {
   background-image: url(images/arrow-right.svg);
+  width: 60px;
+  /* height: 94px; */
+
+  &:active, &:hover {
+    background-image: url(images/arrow-right-active.svg);
+
+  }
+}
+
+.--dbtn-left {
+  background-image: url(images/darrow-left.svg);
+  width: 83px;
+  /* height: 94px; */
+
+  &:active, &:hover {
+    background-image: url(images/darrow-left-active.svg);
+
+  }
+}
+
+.--dbtn-right {
+  background-image: url(images/darrow-right.svg);
+  width: 83px;
+  /* height: 94px; */
+
+
+  &:active, &:hover {
+    background-image: url(images/darrow-right-active.svg);
+  }
+}
+
+.pagination-sec_links {
+  display: flex;
+  max-width: 700px;
+  /* gap: 36px; */
+  justify-content: space-evenly;
+}
+
+.pagination-sec_link {
+  color: var(--icon-dark-color);
+  text-decoration: none;
+  border-radius: 50px;
+  width: 38px;
+  text-align: center;
+  
+  &:hover {
+    color: var(--icon-light-color);
+    background-color: var(--icon-dark-color);
+
+  }
+  
+}
+
+.pagination-sec_link.active {
+  color: var(--icon-light-color);
+    background-color: var(--icon-dark-color);
 }
 
 /* *********************************/
