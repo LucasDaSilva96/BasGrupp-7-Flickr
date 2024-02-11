@@ -25,6 +25,8 @@ body {
   scroll-behavior: smooth;
   min-height: 100dvh;
   font-family: "Jost", sans-serif;
+  overflow-x: hidden;
+  position: relative;
 }
 
 img,
@@ -40,6 +42,37 @@ video {
 /* *********************************/
 
 /* ************* Search-section ***********/
+.search-sec {
+  width: 100%;
+  height: 100dvh;
+  background-color: var(--primary-light-bg-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 10px;
+
+  & .search-sec__search-box {
+    position: relative;
+
+    & .search-sec__search-box__input {
+      min-width: 300px;
+      padding: 8px;
+      border-radius: 10px;
+      border: none;
+      text-align: center;
+    }
+
+    & .search-sec__search-box__search-svg {
+      position: absolute;
+      right: 8px;
+      top: 3.8px;
+      cursor: pointer;
+      background: transparent;
+      backdrop-filter: blur(20px);
+      fill: var(--primary-dark-bg-color);
+    }
+  }
+}
 
 /* *********************************/
 
