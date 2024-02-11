@@ -49,6 +49,68 @@ video {
 
 /* ************* Pagination-section ***********/
 
+.pagination-sec {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* justify-content:center; */
+  background-color: var(--primary-light-bg-color);
+  /* flex-wrap: wrap; */
+  height: 100vh;
+}
+
+.pagination-sec_gallery {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(auto, 276px));
+  gap: 5% 6%;
+  /* justify-content: center; */
+  align-content: center;
+  height: 100%;
+
+  @media screen and (max-width: 1000px) {
+    grid-template-columns: repeat(3, minmax(auto, 276px))
+  }
+  @media screen and (max-width: 900px) {
+    grid-template-columns: repeat(2, minmax(auto, 276px))
+  }
+  @media screen and (max-width: 600px) {
+    grid-template-columns: repeat(1, minmax(auto, 276px))
+  }
+}
+
+.pagination-sec_img {
+  max-height: 208px;
+  border-radius: 8.79px;
+}
+
+.pagination-sec_nav{
+  display: flex;
+  max-width: 702px;
+  justify-content: space-between;
+  margin: 20px;
+
+}
+
+.pagination-sec_btn {
+  height: 84px;
+  width: 42px;
+  border: none;
+  background: transparent;
+  background-size: cover;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.--btn-left {
+  background-image: url(images/arrow-left.svg);
+}
+
+.--btn-right {
+  background-image: url(images/arrow-right.svg);
+}
+
 /* *********************************/
 
 /* ************* Overlay ***********/
