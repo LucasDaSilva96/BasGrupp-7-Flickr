@@ -28,41 +28,14 @@ const toasts = new Toasts({
 searchbar.addEventListener("input", (e) => (SEARCH_PARAM = e.target.value));
 
 // ******* Search - eventListener **
-// searchIcon.addEventListener("click", async () => {
-//   try {
-//     searchbar.value = "Loading...";
-//     const result = await fetchInitialPhotosInfo(SEARCH_PARAM, 12, 1, toasts);
-//     console.log(result);
-
-//     //TEST
-//     replaceImages(result);
-//     //TEST
-
-//     SEARCH_PARAM = null;
-//   } catch (error) {
-//     toasts.push({
-//       title: "Fetch status",
-//       content: `Error: ${error.message}`,
-//       style: "error",
-//       dismissAfter: "3s", // s = seconds
-//       closeButton: false,
-//     });
-//   } finally {
-//     searchbar.value = "";
-//   }
-// });
-
-
-//TEST
-
-searchIcon.addEventListener("click", searchImage)
-
-async function searchImage(SEARCH_PARAM, numOfPages, page, toasts) {
+searchIcon.addEventListener("click", async () => {
   try {
     searchbar.value = "Loading...";
-    const result = await fetchInitialPhotosInfo(SEARCH_PARAM, numOfPages, page, toasts);
+    const result = await fetchInitialPhotosInfo(SEARCH_PARAM, 12, 1, toasts);
+    console.log(result);
+
     //TEST
-    replaceImages(result); //Kalla på funktion för att ersätta bildkällorna med resultatet, hur göra detta med defaultläget??
+    replaceImages(result);
     //TEST
 
     SEARCH_PARAM = null;
@@ -77,9 +50,40 @@ async function searchImage(SEARCH_PARAM, numOfPages, page, toasts) {
   } finally {
     searchbar.value = "";
   }
-};
+});
+
+//MAYAS TEST KOD
+//TEST
+
+// searchIcon.addEventListener("click", () => {
+//   let page = 1;
+//   async function searchImage(SEARCH_PARAM, numOfImg, page, toasts) {
+//     try {
+//       searchbar.value = "Loading...";
+//       const result = await fetchInitialPhotosInfo(SEARCH_PARAM, numOfImg, page, toasts);
+//       // TEST
+//       replaceImages(result); //Kalla på funktion för att ersätta bildkällorna med resultatet, hur göra detta med defaultläget??
+//       // TEST
+  
+//       SEARCH_PARAM = null;
+//     } catch (error) {
+//       toasts.push({
+//         title: "Fetch status",
+//         content: `Error: ${error.message}`,
+//         style: "error",
+//         dismissAfter: "3s", // s = seconds
+//         closeButton: false,
+//       });
+//     } finally {
+//       searchbar.value = "";
+//     }
+//   };
+// })
+
 
 //TEST
+
+
 
 // BUTTONS
 
@@ -116,7 +120,8 @@ numbers.forEach((number, numIndex) => {
 
     updateBtn();
         
-    searchImage(SEARCH_PARAM, 12, currentStep++, toasts); // uppdatera funktionen för att hämta nästa sida - HUR?
+    searchImage(currentStep+1); // uppdatera funktionen för att hämta nästa sida - HUR?
+    console.log(currentStep)
   })
 })
 
@@ -161,5 +166,4 @@ async function replaceImages(replacement) {
 
 }
 
-
-
+// SLUT PÅ MAYAS TEST KOD

@@ -32,8 +32,8 @@ numbers.forEach((number, numIndex) => {
     number.classList.add("pagination-sec_active");
 
     updateBtn();
-        
-    searchImage(SEARCH_PARAM, 12, currentStep++, toasts); // uppdatera funktionen för att hämta nästa sida - HUR?
+    // Går det att spara sökningen i en variabel, typ currentSearch, och kalla på funktionen med variabeln när man trycker sig mellan sidorna så sökning plus sidnumemr skickas med till funktionen?    
+    //searchImage(SEARCH_PARAM, 12, currentStep++, toasts); // uppdatera funktionen för att hämta nästa sida - HUR?
   })
 })
 
