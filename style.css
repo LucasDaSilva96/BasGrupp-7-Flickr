@@ -159,6 +159,10 @@ video {
   &:active, &:hover {
     background-image: url(images/arrow-left-active.svg);
   }
+
+  &:disabled {
+    background-image: url(images/arrow-left-disabled.svg);
+  }
 }
 
 .--btn-right {
@@ -167,7 +171,10 @@ video {
 
   &:active, &:hover {
     background-image: url(images/arrow-right-active.svg);
+  }
 
+  &:disabled {
+    background-image: url(images/arrow-right-disabled.svg);
   }
 }
 
@@ -177,7 +184,10 @@ video {
 
   &:active, &:hover {
     background-image: url(images/darrow-left-active.svg);
+  }
 
+  &:disabled {
+    background-image: url(images/darrow-left-disabled.svg);
   }
 }
 
@@ -188,6 +198,10 @@ video {
 
   &:active, &:hover {
     background-image: url(images/darrow-right-active.svg);
+  }
+
+  &:disabled {
+    background-image: url(images/darrow-right-disabled.svg);
   }
 }
 
