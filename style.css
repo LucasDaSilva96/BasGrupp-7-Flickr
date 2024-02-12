@@ -121,7 +121,7 @@ video {
 
 .pagination-sec_nav{
   display: flex;
-  max-width: 800px;
+  width: 90%;
   gap: 36px;
   justify-content: space-between;
   align-items: center;
