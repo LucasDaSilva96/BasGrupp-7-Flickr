@@ -57,10 +57,10 @@ searchbar.addEventListener("input", (e) => (SEARCH_PARAM = e.target.value));
 
 searchIcon.addEventListener("click", searchImage)
 
-async function searchImage(page = 1) {
+async function searchImage(SEARCH_PARAM, numOfPages, page, toasts) {
   try {
     searchbar.value = "Loading...";
-    const result = await fetchInitialPhotosInfo(SEARCH_PARAM, 12, page, toasts);
+    const result = await fetchInitialPhotosInfo(SEARCH_PARAM, numOfPages, page, toasts);
     //TEST
     replaceImages(result); //Kalla på funktion för att ersätta bildkällorna med resultatet, hur göra detta med defaultläget??
     //TEST
@@ -116,7 +116,7 @@ numbers.forEach((number, numIndex) => {
 
     updateBtn();
         
-    searchImage(currentStep+1); // uppdatera funktionen för att hämta nästa sida - HUR?
+    searchImage(SEARCH_PARAM, 12, currentStep++, toasts); // uppdatera funktionen för att hämta nästa sida - HUR?
   })
 })
 
