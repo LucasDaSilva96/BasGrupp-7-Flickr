@@ -28,11 +28,43 @@ const toasts = new Toasts({
 searchbar.addEventListener("input", (e) => (SEARCH_PARAM = e.target.value));
 
 // ******* Search - eventListener **
-searchIcon.addEventListener("click", async () => {
+// searchIcon.addEventListener("click", async () => {
+//   try {
+//     searchbar.value = "Loading...";
+//     const result = await fetchInitialPhotosInfo(SEARCH_PARAM, 12, 1, toasts);
+//     console.log(result);
+
+//     //TEST
+//     replaceImages(result);
+//     //TEST
+
+//     SEARCH_PARAM = null;
+//   } catch (error) {
+//     toasts.push({
+//       title: "Fetch status",
+//       content: `Error: ${error.message}`,
+//       style: "error",
+//       dismissAfter: "3s", // s = seconds
+//       closeButton: false,
+//     });
+//   } finally {
+//     searchbar.value = "";
+//   }
+// });
+
+
+//TEST
+
+searchIcon.addEventListener("click", searchImage)
+
+async function searchImage(page = 1) {
   try {
     searchbar.value = "Loading...";
-    const result = await fetchInitialPhotosInfo(SEARCH_PARAM, 20, 1, toasts);
-    console.log(result);
+    const result = await fetchInitialPhotosInfo(SEARCH_PARAM, 12, page, toasts);
+    //TEST
+    replaceImages(result); //Kalla på funktion för att ersätta bildkällorna med resultatet, hur göra detta med defaultläget??
+    //TEST
+
     SEARCH_PARAM = null;
   } catch (error) {
     toasts.push({
@@ -45,12 +77,11 @@ searchIcon.addEventListener("click", async () => {
   } finally {
     searchbar.value = "";
   }
-});
+};
 
+//TEST
 
-
-
-
+// BUTTONS
 
 const startBtn = document.querySelector("#pagination-sec_startBtn"),
 endBtn = document.querySelector("#pagination-sec_endBtn"),
@@ -84,13 +115,14 @@ numbers.forEach((number, numIndex) => {
     number.classList.add("pagination-sec_active");
 
     updateBtn();
+        
+    searchImage(currentStep+1); // uppdatera funktionen för att hämta nästa sida - HUR?
   })
 })
 
 prevNext.forEach((button) => {
     button.addEventListener("click", (e) => {
         currentStep += e.target.id === "next" ? 1 : -1; 
-        console.log(currentStep);
         numbers.forEach((number, numIndex) => {
           number.classList.toggle("pagination-sec_active", numIndex === currentStep)
           updateBtn();
@@ -115,3 +147,19 @@ endBtn.addEventListener("click", () => {
   startBtn.disabled = false;
   prevNext[0].disabled = false;
 })
+
+// IMAGES
+
+async function replaceImages(replacement) {
+
+  const images = document.querySelectorAll(".pagination-sec_img");
+  const imagesResult = replacement;
+
+  images.forEach((img, i) => {
+    img.src = imagesResult[i];
+  })
+
+}
+
+
+
