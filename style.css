@@ -148,6 +148,10 @@ video {
   }
 }
 
+.pagination-sec_solid {
+  pointer-events: none;
+}
+
 .--btn-left {
   background-image: url(images/arrow-left.svg);
   width: 25px;
@@ -205,14 +209,13 @@ video {
   &:hover {
     color: var(--icon-light-color);
     background-color: var(--icon-dark-color);
-
   }
   
 }
 
 .pagination-sec_link.pagination-sec_active {
   color: var(--icon-light-color);
-    background-color: var(--icon-dark-color);
+  background-color: var(--icon-dark-color);
 }
 
 /* *********************************/
