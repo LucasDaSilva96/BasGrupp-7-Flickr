@@ -193,13 +193,21 @@ searchIcon.addEventListener("click", async () => {
 
 // **** display result - helper - function
 function displayPagination(resultArray) {
-  pagination_box.innerHTML = "";
+  // pagination_box.innerHTML = "";
 
-  resultArray.map((el) => {
-    const img = document.createElement("img");
-    img.src = el;
-    pagination_box.appendChild(img);
-  });
+    const images = document.querySelectorAll(".pagination-sec_img");
+    const imagesResult = resultArray;
+  
+    images.forEach((img, i) => {
+      img.src = imagesResult[i];
+    })
+  
+  
+  // resultArray.map((el) => {
+  //   const img = document.createElement("img");
+  //   img.src = el;
+  //   pagination_box.appendChild(img);
+  // });
 }
 // ***** Next pagination - Helper-function
 async function paginationNext() {
@@ -212,6 +220,8 @@ async function paginationNext() {
   displayPagination(result);
 }
 
+
+
 // ***** Prev pagination - Helper-function
 async function paginationPrev() {
   const result = await fetchPagination(
@@ -223,24 +233,41 @@ async function paginationPrev() {
   displayPagination(result);
 }
 
+// prevNext.forEach((button) => {
+//   button.addEventListener("click", async (e) => {
+//       if (e.target.id === "next") {
+//         currentStep += 1;
+//         await paginationNext();
+//       } else if (e.target.id === "prev") {
+//         currentStep -= 1;
+//         await paginationPrev();
+//       }
+      
+//       numbers.forEach((number, numIndex) => {
+//         number.classList.toggle("pagination-sec_active", numIndex === currentStep)
+//         updateBtn();
+//       })
+//     })
+// })
+
 // ***** Next pagination
-next_button.addEventListener("click", async () => {
-  currentPageNumber = currentPageNumber++;
-  currentPage_Text.textContent = "Loading...";
-  await paginationNext();
-  currentPage_Text.textContent = currentPageNumber;
-});
+// next_button.addEventListener("click", async () => {
+//   currentPageNumber = currentPageNumber++;
+//   // currentPage_Text.textContent = "Loading...";
+//   await paginationNext();
+//   // currentPage_Text.textContent = currentPageNumber;
+// });
 
 // ***** Prev pagination
-prev_Button.addEventListener("click", async () => {
-  currentPageNumber =
-    currentPageNumber > 1 ? currentPageNumber-- : currentPageNumber;
-  currentPage_Text.textContent = "Loading...";
-  if (currentPageNumber > 1) {
-    await paginationPrev();
-  }
-  currentPage_Text.textContent = currentPageNumber;
-});
+// prev_Button.addEventListener("click", async () => {
+//   currentPageNumber =
+//     currentPageNumber > 1 ? currentPageNumber-- : currentPageNumber;
+//   // currentPage_Text.textContent = "Loading...";
+//   if (currentPageNumber > 1) {
+//     await paginationPrev();
+//   }
+//   // currentPage_Text.textContent = currentPageNumber;
+// });
 
 // **** Scroll node-element-into-view function
 function ScrollIntoView(nodeEl) {
@@ -290,28 +317,42 @@ numbers.forEach((number, numIndex) => {
 
     updateBtn();
         
-    searchImage(currentStep+1); // uppdatera funktionen för att hämta nästa sida - HUR?
-    console.log(currentStep)
+    // searchImage(currentStep+1); // uppdatera funktionen för att hämta nästa sida - HUR?
+    // console.log(currentStep)
   })
 })
 
-prevNext.forEach((button) => {
-    button.addEventListener("click", (e) => {
-        currentStep += e.target.id === "next" ? 1 : -1; 
-        numbers.forEach((number, numIndex) => {
-          number.classList.toggle("pagination-sec_active", numIndex === currentStep)
-          updateBtn();
-        })
-      })
-})
+// prevNext.forEach((button) => {
+//     button.addEventListener("click", (e) => {
+//         currentStep += e.target.id === "next" ? 1 : -1; 
+//         numbers.forEach((number, numIndex) => {
+//           number.classList.toggle("pagination-sec_active", numIndex === currentStep)
+//           updateBtn();
+//         })
+//       })
+// })
 
-startBtn.addEventListener("click", () => {
+
+
+// async function paginationEnd(page) { //skapa funktion till sista sida och första sidan på samma sätt
+//   const result = await fetchPagination(
+//     currentSearch,
+//     amountOfImagePerPage,
+//     currentPageNumber
+//   );
+
+//   displayPagination(result);
+// }
+
+startBtn.addEventListener("click", async () => {
   document.querySelector(".pagination-sec_active").classList.remove("pagination-sec_active");
   numbers[0].classList.add("pagination-sec_active");
   currentStep = 0;
   updateBtn();
   endBtn.disabled = false;
   prevNext[1].disabled = false;
+
+  // await paginationEnd(currentStep+1)
 })
 
 endBtn.addEventListener("click", () => {
@@ -325,15 +366,32 @@ endBtn.addEventListener("click", () => {
 
 // IMAGES
 
-async function replaceImages(replacement) {
+// async function replaceImages(replacement) {
 
-  const images = document.querySelectorAll(".pagination-sec_img");
-  const imagesResult = replacement;
+//   const images = document.querySelectorAll(".pagination-sec_img");
+//   const imagesResult = replacement;
 
-  images.forEach((img, i) => {
-    img.src = imagesResult[i];
-  })
+//   images.forEach((img, i) => {
+//     img.src = imagesResult[i];
+//   })
 
-}
+// }
 
 // SLUT PÅ MAYAS TEST KOD
+
+prevNext.forEach((button) => {
+  button.addEventListener("click", async (e) => {
+      if (e.target.id === "next") {
+        currentStep += 1;
+        await paginationNext();
+      } else if (e.target.id === "prev") {
+        currentStep -= 1;
+        await paginationPrev();
+      }
+      
+      numbers.forEach((number, numIndex) => {
+        number.classList.toggle("pagination-sec_active", numIndex === currentStep)
+        updateBtn();
+      })
+    })
+})
