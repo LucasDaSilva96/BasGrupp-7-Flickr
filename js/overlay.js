@@ -1,4 +1,4 @@
-const images = document.querySelectorAll(".gallery-images");
+const images = document.querySelectorAll(".pagination-sec_img");
 
 let imgSrc;
 let selectedImage;
