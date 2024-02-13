@@ -4,6 +4,32 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="./favicon_package_v0.16/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./favicon_package_v0.16/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="./favicon_package_v0.16/favicon-16x16.png"
+    />
+    <link rel="manifest" href="./favicon_package_v0.16/site.webmanifest" />
+    <link
+      rel="mask-icon"
+      href="./favicon_package_v0.16/safari-pinned-tab.svg"
+      color="#5bbad5"
+    />
+    <meta name="msapplication-TileColor" content="#2b5797" />
+    <meta name="theme-color" content="#000000" />
+    <link rel="stylesheet" href="./toast-notification/notis.css" />
     <script type="module" src="main.js"></script>
     <title>Just Flickr</title>
   </head>
@@ -53,6 +79,35 @@
               d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"
             ></path>
           </svg>
+    <header></header>
+    <!--  --> 
+    
+    <!-- ****** Main ****** -->
+    <main>
+      <!-- Search/Api-call -->
+      <section class="search-sec">
+        <div class="search-wrapper">
+          <div class="search-sec__search-box">
+            <input
+              type="text"
+              minlength="3"
+              class="search-sec__search-box__input"
+              placeholder="Type your search"
+            />
+            <svg
+              class="search-sec__search-box__search-svg"
+              xmlns="http://www.w3.org/2000/svg"
+              width="32"
+              height="32"
+              fill="#000000"
+              viewBox="0 0 256 256"
+            >
+              <path
+                d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"
+              ></path>
+            </svg>
+          </div>
+          <button id="search-btn">Search</button>
         </div>
       </section>
       <!--  -->
