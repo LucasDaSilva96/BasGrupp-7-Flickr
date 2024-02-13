@@ -1,88 +1,3 @@
-// // Strict mode
-// "use-strict";
-
-// // ********** Import ***************
-// import { fetchInitialPhotosInfo } from "./js/api.js";
-// import Toasts from "./toast-notification/toast.js";
-
-// // ********** Node-selection ***************
-// const searchbar = document.querySelector(".search-sec__search-box__input");
-// const searchIcon = document.querySelector(
-//   ".search-sec__search-box__search-svg"
-// );
-
-// // ************ Global variables ***********
-// let SEARCH_PARAM = null;
-// const toasts = new Toasts({
-//   offsetX: 20, // 20px
-//   offsetY: 20, // 20px
-//   gap: 20, // The gap size in pixels between toasts
-//   width: 300, // 300px
-//   timing: "ease", // See list of available CSS transition timings
-//   duration: ".5s", // Transition duration
-//   dimOld: true, // Dim old notifications while the newest notification stays highlighted
-//   position: "top-center", // top-left | top-center | top-right | bottom-left | bottom-center | bottom-right
-// });
-
-// // ************** Node-EventListeners ***************
-// searchbar.addEventListener("input", (e) => (SEARCH_PARAM = e.target.value));
-
-// // ******* Search - eventListener **
-// searchIcon.addEventListener("click", async () => {
-//   try {
-//     searchbar.value = "Loading...";
-//     const result = await fetchInitialPhotosInfo(SEARCH_PARAM, 12, 1, toasts);
-//     console.log(result);
-
-//     //TEST
-//     replaceImages(result);
-//     //TEST
-
-//     SEARCH_PARAM = null;
-//   } catch (error) {
-//     toasts.push({
-//       title: "Fetch status",
-//       content: `Error: ${error.message}`,
-//       style: "error",
-//       dismissAfter: "3s", // s = seconds
-//       closeButton: false,
-//     });
-//   } finally {
-//     searchbar.value = "";
-//   }
-// });
-
-//MAYAS TEST KOD
-//TEST
-
-// searchIcon.addEventListener("click", () => {
-//   let page = 1;
-//   async function searchImage(SEARCH_PARAM, numOfImg, page, toasts) {
-//     try {
-//       searchbar.value = "Loading...";
-//       const result = await fetchInitialPhotosInfo(SEARCH_PARAM, numOfImg, page, toasts);
-//       // TEST
-//       replaceImages(result); //Kalla på funktion för att ersätta bildkällorna med resultatet, hur göra detta med defaultläget??
-//       // TEST
-
-//       SEARCH_PARAM = null;
-//     } catch (error) {
-//       toasts.push({
-//         title: "Fetch status",
-//         content: `Error: ${error.message}`,
-//         style: "error",
-//         dismissAfter: "3s", // s = seconds
-//         closeButton: false,
-//       });
-//     } finally {
-//       searchbar.value = "";
-//     }
-//   };
-// })
-
-//TEST
-
-//NY KOD
 // Strict mode
 "use-strict";
 
@@ -92,18 +7,7 @@ import Toasts from "./toast-notification/toast.js";
 
 // ********** Node-selection ***************
 const searchbar = document.querySelector(".search-sec__search-box__input");
-<<<<<<< HEAD
-const searchIcon = document.querySelector(
-  ".search-sec__search-box__search-svg"
-);
-const pagination_section = document.querySelector(".pagination-sec");
-const pagination_box = document.querySelector(".pagination-box");
-const prev_Button = document.getElementById("prev-btn");
-const next_button = document.getElementById("next-btn");
-const currentPage_Text = document.getElementById("current-page");
-=======
 const searchIcon = document.getElementById("search-btn");
->>>>>>> main
 
 // ************ Global variables ***********
 let currentPageNumber = 1;
@@ -133,10 +37,6 @@ async function searchDefaultImages() {
       currentPageNumber,
       toasts
     );
-<<<<<<< HEAD
-    displayPagination(result);
-=======
->>>>>>> main
   } catch (error) {
     toasts.push({
       title: "Fetch status",
@@ -161,12 +61,6 @@ async function searchImages(currentSearch, num_per_page, page_num, toasts) {
       page_num,
       toasts
     );
-<<<<<<< HEAD
-
-    displayPagination(result);
-    ScrollIntoView(pagination_section);
-=======
->>>>>>> main
   } catch (error) {
     toasts.push({
       title: "Fetch status",
@@ -176,12 +70,8 @@ async function searchImages(currentSearch, num_per_page, page_num, toasts) {
       closeButton: false,
     });
   } finally {
-<<<<<<< HEAD
-    searchbar.value = "";
-=======
     searchbar.value = currentSearch;
     searchbar.textContent = currentSearch;
->>>>>>> main
   }
 }
 
@@ -196,11 +86,8 @@ searchbar.addEventListener("input", (e) => (currentSearch = e.target.value));
 
 // ******* Search - eventListener **
 searchIcon.addEventListener("click", async () => {
-<<<<<<< HEAD
-=======
   currentPageNumber = 1;
 
->>>>>>> main
   await searchImages(
     currentSearch,
     amountOfImagePerPage,
@@ -209,86 +96,6 @@ searchIcon.addEventListener("click", async () => {
   );
 });
 
-<<<<<<< HEAD
-// ************************* Example of pagination - (Not Best Practice) **************************
-
-// **** display result - helper - function
-function displayPagination(resultArray) {
-  // pagination_box.innerHTML = "";
-
-  const images = document.querySelectorAll(".pagination-sec_img");
-  const imagesResult = resultArray;
-
-  images.forEach((img, i) => {
-    img.src = imagesResult[i];
-  });
-
-  // resultArray.map((el) => {
-  //   const img = document.createElement("img");
-  //   img.src = el;
-  //   pagination_box.appendChild(img);
-  // });
-}
-// ***** Next pagination - Helper-function
-async function paginationNext() {
-  const result = await fetchPagination(
-    currentSearch,
-    amountOfImagePerPage,
-    currentPageNumber++
-  );
-
-  displayPagination(result);
-}
-
-// ***** Prev pagination - Helper-function
-async function paginationPrev() {
-  const result = await fetchPagination(
-    currentSearch,
-    amountOfImagePerPage,
-    currentPageNumber > 1 ? currentPageNumber-- : currentPageNumber
-  );
-
-  displayPagination(result);
-}
-
-// prevNext.forEach((button) => {
-//   button.addEventListener("click", async (e) => {
-//       if (e.target.id === "next") {
-//         currentStep += 1;
-//         await paginationNext();
-//       } else if (e.target.id === "prev") {
-//         currentStep -= 1;
-//         await paginationPrev();
-//       }
-
-//       numbers.forEach((number, numIndex) => {
-//         number.classList.toggle("pagination-sec_active", numIndex === currentStep)
-//         updateBtn();
-//       })
-//     })
-// })
-
-// ***** Next pagination
-// next_button.addEventListener("click", async () => {
-//   currentPageNumber = currentPageNumber++;
-//   // currentPage_Text.textContent = "Loading...";
-//   await paginationNext();
-//   // currentPage_Text.textContent = currentPageNumber;
-// });
-
-// ***** Prev pagination
-// prev_Button.addEventListener("click", async () => {
-//   currentPageNumber =
-//     currentPageNumber > 1 ? currentPageNumber-- : currentPageNumber;
-//   // currentPage_Text.textContent = "Loading...";
-//   if (currentPageNumber > 1) {
-//     await paginationPrev();
-//   }
-//   // currentPage_Text.textContent = currentPageNumber;
-// });
-
-=======
->>>>>>> main
 // **** Scroll node-element-into-view function
 function ScrollIntoView(nodeEl) {
   return nodeEl.scrollIntoView({
@@ -297,175 +104,3 @@ function ScrollIntoView(nodeEl) {
     inline: "end",
   });
 }
-<<<<<<< HEAD
-
-console.log(currentSearch);
-
-// BUTTONS
-
-const startBtn = document.querySelector("#pagination-sec_startBtn"),
-  endBtn = document.querySelector("#pagination-sec_endBtn"),
-  prevNext = document.querySelectorAll(".pagination-sec_prevNext"),
-  numbers = document.querySelectorAll(".pagination-sec_link");
-
-let currentStep = 0;
-
-const updateBtn = () => {
-  if (currentStep === 4) {
-    endBtn.disabled = true;
-    prevNext[1].disabled = true;
-  } else if (currentStep === 0) {
-    startBtn.disabled = true;
-    prevNext[0].disabled = true;
-  } else {
-    endBtn.disabled = false;
-    prevNext[1].disabled = false;
-    startBtn.disabled = false;
-    prevNext[0].disabled = false;
-  }
-};
-
-// BLÄDDRING VIA SIFFROR
-const obj = {
-  "page-1": [],
-  "page-2": [],
-  "page-3": [],
-  "page-4": [],
-  "page-5": [],
-};
-
-numbers.forEach((number, numIndex) => {
-  number.addEventListener("click", async (e) => {
-    e.preventDefault();
-    currentStep = numIndex;
-
-    document
-      .querySelector(".pagination-sec_active")
-      .classList.remove("pagination-sec_active");
-
-    number.classList.add("pagination-sec_active");
-
-    updateBtn();
-
-    const result = await fetchPagination(
-      currentSearch,
-      amountOfImagePerPage,
-      currentStep
-    );
-
-    obj[`page-${currentStep}`] = result;
-
-    displayPagination(result);
-    console.log(currentStep);
-  });
-});
-
-// prevNext.forEach((button) => {
-//     button.addEventListener("click", (e) => {
-//         currentStep += e.target.id === "next" ? 1 : -1;
-//         numbers.forEach((number, numIndex) => {
-//           number.classList.toggle("pagination-sec_active", numIndex === currentStep)
-//           updateBtn();
-//         })
-//       })
-// })
-
-// async function paginationEnd(page) { //skapa funktion till sista sida och första sidan på samma sätt
-//   const result = await fetchPagination(
-//     currentSearch,
-//     amountOfImagePerPage,
-//     currentPageNumber
-//   );
-
-//   displayPagination(result);
-// }
-
-startBtn.addEventListener("click", async () => {
-  document
-    .querySelector(".pagination-sec_active")
-    .classList.remove("pagination-sec_active");
-  numbers[0].classList.add("pagination-sec_active");
-  currentStep = 0;
-  updateBtn();
-  endBtn.disabled = false;
-  prevNext[1].disabled = false;
-
-  // await paginationEnd(currentStep+1)
-});
-
-// async function paginationNext() {
-//   const result = await fetchPagination(
-//     currentSearch,
-//     amountOfImagePerPage,
-//     currentPageNumber++
-//   );
-
-//   displayPagination(result);
-// }
-
-endBtn.addEventListener("click", async () => {
-  document
-    .querySelector(".pagination-sec_active")
-    .classList.remove("pagination-sec_active");
-  numbers[4].classList.add("pagination-sec_active");
-  currentStep = 4;
-  updateBtn();
-  startBtn.disabled = false;
-  prevNext[0].disabled = false;
-
-  const result = await fetchPagination(
-    currentSearch,
-    amountOfImagePerPage,
-    currentStep
-  );
-
-  displayPagination(result);
-});
-
-// IMAGES
-
-// async function replaceImages(replacement) {
-
-//   const images = document.querySelectorAll(".pagination-sec_img");
-//   const imagesResult = replacement;
-
-//   images.forEach((img, i) => {
-//     img.src = imagesResult[i];
-//   })
-
-// }
-
-prevNext.forEach((button) => {
-  button.addEventListener("click", async (e) => {
-    if (e.target.id === "next") {
-      currentStep += 1;
-      await paginationNext();
-    } else if (e.target.id === "prev") {
-      currentStep -= 1;
-      await paginationPrev();
-    }
-
-    numbers.forEach((number, numIndex) => {
-      number.classList.toggle(
-        "pagination-sec_active",
-        numIndex === currentStep
-      );
-      updateBtn();
-    });
-  });
-});
-
-// SLUT PÅ MAYAS TEST KOD
-
-
-// const resultObj = {
-//     page1: "",
-//     page2: "",
-//     page3: "",
-//     page4: "",
-//     page5: ""
-//   }
-  
-//   result
-=======
->>>>>>> main
