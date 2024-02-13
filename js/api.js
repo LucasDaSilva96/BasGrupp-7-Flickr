@@ -5,7 +5,7 @@ const KEY = "8ae72c3e923434228e7112a400a6f402";
 // This function is for fetching initial data. This function returns an array
 // with url for each data/img
 export async function fetchInitialPhotosInfo(
-  searchParam = "Airplane",
+  searchParam,
   resultPerPage = 20,
   currentPage = 1,
   // ↓ MUST ↓
@@ -23,11 +23,10 @@ export async function fetchInitialPhotosInfo(
   }
   try {
     const res = await fetch(
-      `https://api.flickr.com/services/rest?method=flickr.photos.search&api_key=${KEY}&text=${searchParam}&page=${currentPage}&per_page=${resultPerPage}&sort=relevance&format=json&nojsoncallback=1`
+      `https://api.flickr.com/services/rest?method=flickr.photos.search&api_key=${KEY}&text=${searchParam}&page=${currentPage}&per_page=${resultPerPage}&sort=relevance&orientation=landscape&format=json&nojsoncallback=1`
     );
     const { photos } = await res.json();
     const { photo } = photos;
-    console.log(photo);
 
     toasts.push({
       title: "Fetch status",
@@ -50,7 +49,7 @@ export async function fetchInitialPhotosInfo(
 }
 
 export async function fetchPagination(
-  searchParam = "Airplane",
+  searchParam,
   resultPerPage = 20,
   currentPage = 1
 ) {
@@ -60,7 +59,7 @@ export async function fetchPagination(
   }
   try {
     const res = await fetch(
-      `https://api.flickr.com/services/rest?method=flickr.photos.search&api_key=${KEY}&text=${searchParam}&page=${currentPage}&per_page=${resultPerPage}&sort=relevance&format=json&nojsoncallback=1`
+      `https://api.flickr.com/services/rest?method=flickr.photos.search&api_key=${KEY}&text=${searchParam}&page=${currentPage}&per_page=${resultPerPage}&sort=relevance&orientation=landscape&format=json&nojsoncallback=1`
     );
     const { photos } = await res.json();
     const { photo } = photos;
@@ -77,7 +76,6 @@ function getImagesSrcArray(photosArray) {
   const initialArray = [];
   photosArray.map((img) => {
     const imageUrl = `https://live.staticflickr.com/${img.server}/${img.id}_${img.secret}.jpg`;
-    // const url = `https://farm${img.farm}.staticflickr.com/${img.server}/${img.id}_${img.secret}_${imgSize}.jpg`;
     initialArray.push(imageUrl);
   });
 
