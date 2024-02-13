@@ -1,88 +1,3 @@
-// // Strict mode
-// "use-strict";
-
-// // ********** Import ***************
-// import { fetchInitialPhotosInfo } from "./js/api.js";
-// import Toasts from "./toast-notification/toast.js";
-
-// // ********** Node-selection ***************
-// const searchbar = document.querySelector(".search-sec__search-box__input");
-// const searchIcon = document.querySelector(
-//   ".search-sec__search-box__search-svg"
-// );
-
-// // ************ Global variables ***********
-// let SEARCH_PARAM = null;
-// const toasts = new Toasts({
-//   offsetX: 20, // 20px
-//   offsetY: 20, // 20px
-//   gap: 20, // The gap size in pixels between toasts
-//   width: 300, // 300px
-//   timing: "ease", // See list of available CSS transition timings
-//   duration: ".5s", // Transition duration
-//   dimOld: true, // Dim old notifications while the newest notification stays highlighted
-//   position: "top-center", // top-left | top-center | top-right | bottom-left | bottom-center | bottom-right
-// });
-
-// // ************** Node-EventListeners ***************
-// searchbar.addEventListener("input", (e) => (SEARCH_PARAM = e.target.value));
-
-// // ******* Search - eventListener **
-// searchIcon.addEventListener("click", async () => {
-//   try {
-//     searchbar.value = "Loading...";
-//     const result = await fetchInitialPhotosInfo(SEARCH_PARAM, 12, 1, toasts);
-//     console.log(result);
-
-//     //TEST
-//     replaceImages(result);
-//     //TEST
-
-//     SEARCH_PARAM = null;
-//   } catch (error) {
-//     toasts.push({
-//       title: "Fetch status",
-//       content: `Error: ${error.message}`,
-//       style: "error",
-//       dismissAfter: "3s", // s = seconds
-//       closeButton: false,
-//     });
-//   } finally {
-//     searchbar.value = "";
-//   }
-// });
-
-//MAYAS TEST KOD
-//TEST
-
-// searchIcon.addEventListener("click", () => {
-//   let page = 1;
-//   async function searchImage(SEARCH_PARAM, numOfImg, page, toasts) {
-//     try {
-//       searchbar.value = "Loading...";
-//       const result = await fetchInitialPhotosInfo(SEARCH_PARAM, numOfImg, page, toasts);
-//       // TEST
-//       replaceImages(result); //Kalla på funktion för att ersätta bildkällorna med resultatet, hur göra detta med defaultläget??
-//       // TEST
-
-//       SEARCH_PARAM = null;
-//     } catch (error) {
-//       toasts.push({
-//         title: "Fetch status",
-//         content: `Error: ${error.message}`,
-//         style: "error",
-//         dismissAfter: "3s", // s = seconds
-//         closeButton: false,
-//       });
-//     } finally {
-//       searchbar.value = "";
-//     }
-//   };
-// })
-
-//TEST
-
-//NY KOD
 // Strict mode
 "use-strict";
 
@@ -92,14 +7,7 @@ import Toasts from "./toast-notification/toast.js";
 
 // ********** Node-selection ***************
 const searchbar = document.querySelector(".search-sec__search-box__input");
-const searchIcon = document.querySelector(
-  ".search-sec__search-box__search-svg"
-);
-const pagination_section = document.querySelector(".pagination-sec");
-const pagination_box = document.querySelector(".pagination-box");
-const prev_Button = document.getElementById("prev-btn");
-const next_button = document.getElementById("next-btn");
-const currentPage_Text = document.getElementById("current-page");
+const searchIcon = document.getElementById("search-btn");
 
 // ************ Global variables ***********
 let currentPageNumber = 1;
@@ -116,6 +24,8 @@ const toasts = new Toasts({
   position: "top-center", // top-left | top-center | top-right | bottom-left | bottom-center | bottom-right
 });
 
+const pagination_section = document.querySelector(".pagination-sec"); // MAYA SAVED PAGINATION SEC IN CONST
+
 // ************ Global functions ***********
 
 // This function is for fetching the default images
@@ -129,7 +39,7 @@ async function searchDefaultImages() {
       currentPageNumber,
       toasts
     );
-    displayPagination(result);
+    displayPagination(result); // MAYA LAGT TILL FRÅN GAMMAL KOD
   } catch (error) {
     toasts.push({
       title: "Fetch status",
@@ -139,7 +49,8 @@ async function searchDefaultImages() {
       closeButton: false,
     });
   } finally {
-    searchbar.value = "";
+    searchbar.value = currentSearch;
+    // searchbar.textContent = currentSearch; //MAYA KOMMENTERAT BORT
   }
 }
 
@@ -165,7 +76,8 @@ async function searchImages(currentSearch, num_per_page, page_num, toasts) {
       closeButton: false,
     });
   } finally {
-    searchbar.value = "";
+    searchbar.value = currentSearch;
+    searchbar.textContent = currentSearch;
   }
 }
 
@@ -180,6 +92,8 @@ searchbar.addEventListener("input", (e) => (currentSearch = e.target.value));
 
 // ******* Search - eventListener **
 searchIcon.addEventListener("click", async () => {
+  currentPageNumber = 1;
+
   await searchImages(
     currentSearch,
     amountOfImagePerPage,
@@ -188,11 +102,23 @@ searchIcon.addEventListener("click", async () => {
   );
 });
 
+// **** Scroll node-element-into-view function
+function ScrollIntoView(nodeEl) {
+  return nodeEl.scrollIntoView({
+    behavior: "smooth",
+    block: "end",
+    inline: "end",
+  });
+}
+
+
+//MAYAS KOD
+
+
 // ************************* Example of pagination - (Not Best Practice) **************************
 
 // **** display result - helper - function
-function displayPagination(resultArray) {
-  // pagination_box.innerHTML = "";
+function displayPagination(resultArray, page) {
 
   const images = document.querySelectorAll(".pagination-sec_img");
   const imagesResult = resultArray;
@@ -201,6 +127,9 @@ function displayPagination(resultArray) {
     img.src = imagesResult[i];
   });
 
+  savePages(imagesResult, currentPageNumber); // KALLAR PÅ FUNKTION SOM SPARAR RESULTATET SOM KEY I OBJEKTET SAVEDPAGES
+  console.log(currentPageNumber);
+  console.log(imagesResult)
   // resultArray.map((el) => {
   //   const img = document.createElement("img");
   //   img.src = el;
@@ -215,63 +144,20 @@ async function paginationNext() {
     currentPageNumber++
   );
 
-  displayPagination(result);
+  displayPagination(result, currentPageNumber);
+  // savePage(result); //NY FUNKTION
+  // console.log(result) // HÄR BORDE RESULTATET SPARAS I OBJEKT
 }
 
 // ***** Prev pagination - Helper-function
-async function paginationPrev() {
+async function paginationPrev(page) {
   const result = await fetchPagination(
     currentSearch,
     amountOfImagePerPage,
     currentPageNumber > 1 ? currentPageNumber-- : currentPageNumber
   );
 
-  displayPagination(result);
-}
-
-// prevNext.forEach((button) => {
-//   button.addEventListener("click", async (e) => {
-//       if (e.target.id === "next") {
-//         currentStep += 1;
-//         await paginationNext();
-//       } else if (e.target.id === "prev") {
-//         currentStep -= 1;
-//         await paginationPrev();
-//       }
-
-//       numbers.forEach((number, numIndex) => {
-//         number.classList.toggle("pagination-sec_active", numIndex === currentStep)
-//         updateBtn();
-//       })
-//     })
-// })
-
-// ***** Next pagination
-// next_button.addEventListener("click", async () => {
-//   currentPageNumber = currentPageNumber++;
-//   // currentPage_Text.textContent = "Loading...";
-//   await paginationNext();
-//   // currentPage_Text.textContent = currentPageNumber;
-// });
-
-// ***** Prev pagination
-// prev_Button.addEventListener("click", async () => {
-//   currentPageNumber =
-//     currentPageNumber > 1 ? currentPageNumber-- : currentPageNumber;
-//   // currentPage_Text.textContent = "Loading...";
-//   if (currentPageNumber > 1) {
-//     await paginationPrev();
-//   }
-//   // currentPage_Text.textContent = currentPageNumber;
-// });
-
-// **** Scroll node-element-into-view function
-function ScrollIntoView(nodeEl) {
-  return nodeEl.scrollIntoView({
-    behavior: "smooth",
-    block: "end",
-    inline: "end",
-  });
+  displayPagination(result, currentPageNumber);
 }
 
 console.log(currentSearch);
@@ -301,6 +187,7 @@ const updateBtn = () => {
 };
 
 // BLÄDDRING VIA SIFFROR
+
 const obj = {
   "page-1": [],
   "page-2": [],
@@ -335,16 +222,6 @@ numbers.forEach((number, numIndex) => {
   });
 });
 
-// prevNext.forEach((button) => {
-//     button.addEventListener("click", (e) => {
-//         currentStep += e.target.id === "next" ? 1 : -1;
-//         numbers.forEach((number, numIndex) => {
-//           number.classList.toggle("pagination-sec_active", numIndex === currentStep)
-//           updateBtn();
-//         })
-//       })
-// })
-
 // async function paginationEnd(page) { //skapa funktion till sista sida och första sidan på samma sätt
 //   const result = await fetchPagination(
 //     currentSearch,
@@ -354,6 +231,9 @@ numbers.forEach((number, numIndex) => {
 
 //   displayPagination(result);
 // }
+
+
+//START and END BUTTONS
 
 startBtn.addEventListener("click", async () => {
   document
@@ -368,15 +248,6 @@ startBtn.addEventListener("click", async () => {
   // await paginationEnd(currentStep+1)
 });
 
-// async function paginationNext() {
-//   const result = await fetchPagination(
-//     currentSearch,
-//     amountOfImagePerPage,
-//     currentPageNumber++
-//   );
-
-//   displayPagination(result);
-// }
 
 endBtn.addEventListener("click", async () => {
   document
@@ -397,27 +268,16 @@ endBtn.addEventListener("click", async () => {
   displayPagination(result);
 });
 
-// IMAGES
-
-// async function replaceImages(replacement) {
-
-//   const images = document.querySelectorAll(".pagination-sec_img");
-//   const imagesResult = replacement;
-
-//   images.forEach((img, i) => {
-//     img.src = imagesResult[i];
-//   })
-
-// }
+// PREV-NEXT BUTTONS
 
 prevNext.forEach((button) => {
   button.addEventListener("click", async (e) => {
     if (e.target.id === "next") {
       currentStep += 1;
-      await paginationNext();
+      await paginationNext(); //Kallar på funktion
     } else if (e.target.id === "prev") {
       currentStep -= 1;
-      await paginationPrev();
+      await paginationPrev(); //Kallar på funktion
     }
 
     numbers.forEach((number, numIndex) => {
@@ -430,15 +290,48 @@ prevNext.forEach((button) => {
   });
 });
 
+//SPARA SÖKNING I OBJEKT
+
+const pages = {
+  "page1": [],
+  "page2": [],
+  "page3": [],
+  "page4": [],
+  "page5": [],
+};
+
+function savePages(result, page) {
+  
+  // const images = document.querySelectorAll(".pagination-sec_img");
+  // const imagesResult = result;
+
+  // images.forEach((img, i) => {
+  //   img.src = imagesResult[i]; 
+  // });
+
+
+  if (page === 1 && pages.page1.length === 0) {
+    pages.page1 = result;
+
+  } else if (page === 2 && pages.page2.length === 0) {
+    pages.page2 = result;
+  } else if (page === 3 && pages.page3.length === 0) {
+    pages.page23 = result;
+  } else if (page === 4 && pages.page4.length === 0) {
+    pages.page4 = result;
+  } else if (page === 5 && pages.page5.length === 0) {
+    pages.page5 = result;
+  }
+
+  console.log(`This is pages.page1.length: ${pages.page1.length}`)
+  console.log(`This is pages object: ${pages}`);
+  console.log(`This is current page: ${page}`)
+  
+}
+
+// console.log(pages)
+
+
 // SLUT PÅ MAYAS TEST KOD
 
 
-// const resultObj = {
-//     page1: "",
-//     page2: "",
-//     page3: "",
-//     page4: "",
-//     page5: ""
-//   }
-  
-//   result

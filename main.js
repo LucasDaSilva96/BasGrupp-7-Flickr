@@ -61,6 +61,9 @@ async function searchImages(currentSearch, num_per_page, page_num, toasts) {
       page_num,
       toasts
     );
+
+    displayPagination(result);
+    ScrollIntoView(pagination_section);
   } catch (error) {
     toasts.push({
       title: "Fetch status",
