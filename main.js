@@ -61,8 +61,7 @@ async function searchImages(currentSearch, num_per_page, page_num, toasts) {
       page_num,
       toasts
     );
-
-    displayPagination(result);
+    
     ScrollIntoView(pagination_section);
   } catch (error) {
     toasts.push({
@@ -90,6 +89,7 @@ searchbar.addEventListener("input", (e) => (currentSearch = e.target.value));
 // ******* Search - eventListener **
 searchIcon.addEventListener("click", async () => {
   currentPageNumber = 1;
+
 
   await searchImages(
     currentSearch,

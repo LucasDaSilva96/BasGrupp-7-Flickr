@@ -8,6 +8,7 @@ import Toasts from "./toast-notification/toast.js";
 // ********** Node-selection ***************
 const searchbar = document.querySelector(".search-sec__search-box__input");
 const searchIcon = document.getElementById("search-btn");
+const pagination_section = document.querySelector(".pagination-sec") //MAYA ADDED CONST
 
 // ************ Global variables ***********
 let currentPageNumber = 1;
@@ -24,8 +25,6 @@ const toasts = new Toasts({
   position: "top-center", // top-left | top-center | top-right | bottom-left | bottom-center | bottom-right
 });
 
-const pagination_section = document.querySelector(".pagination-sec"); // MAYA SAVED PAGINATION SEC IN CONST
-
 // ************ Global functions ***********
 
 // This function is for fetching the default images
@@ -39,7 +38,7 @@ async function searchDefaultImages() {
       currentPageNumber,
       toasts
     );
-    displayPagination(result); // MAYA LAGT TILL FRÅN GAMMAL KOD
+    savePages(result, currentPageNumber); //MAYA LAGT TILL
   } catch (error) {
     toasts.push({
       title: "Fetch status",
@@ -50,7 +49,7 @@ async function searchDefaultImages() {
     });
   } finally {
     searchbar.value = currentSearch;
-    // searchbar.textContent = currentSearch; //MAYA KOMMENTERAT BORT
+    searchbar.textContent = currentSearch;
   }
 }
 
@@ -65,7 +64,10 @@ async function searchImages(currentSearch, num_per_page, page_num, toasts) {
       toasts
     );
 
-    displayPagination(result);
+    savePages(result, page_num); //MAYA LAGT TILL
+    // console.log(`This is the result: ${result} and this is page number: ${page_num}`)
+    // displayPagination(result); MAYA KOMMENTERAT BORT
+    
     ScrollIntoView(pagination_section);
   } catch (error) {
     toasts.push({
@@ -94,6 +96,8 @@ searchbar.addEventListener("input", (e) => (currentSearch = e.target.value));
 searchIcon.addEventListener("click", async () => {
   currentPageNumber = 1;
 
+  rinsePages(); //MAYA ADDED - Rinse pages-object
+
   await searchImages(
     currentSearch,
     amountOfImagePerPage,
@@ -112,55 +116,11 @@ function ScrollIntoView(nodeEl) {
 }
 
 
+
 //MAYAS KOD
 
 
 // ************************* Example of pagination - (Not Best Practice) **************************
-
-// **** display result - helper - function
-function displayPagination(resultArray, page) {
-
-  const images = document.querySelectorAll(".pagination-sec_img");
-  const imagesResult = resultArray;
-
-  images.forEach((img, i) => {
-    img.src = imagesResult[i];
-  });
-
-  savePages(imagesResult, currentPageNumber); // KALLAR PÅ FUNKTION SOM SPARAR RESULTATET SOM KEY I OBJEKTET SAVEDPAGES
-  console.log(currentPageNumber);
-  console.log(imagesResult)
-  // resultArray.map((el) => {
-  //   const img = document.createElement("img");
-  //   img.src = el;
-  //   pagination_box.appendChild(img);
-  // });
-}
-// ***** Next pagination - Helper-function
-async function paginationNext() {
-  const result = await fetchPagination(
-    currentSearch,
-    amountOfImagePerPage,
-    currentPageNumber++
-  );
-
-  displayPagination(result, currentPageNumber);
-  // savePage(result); //NY FUNKTION
-  // console.log(result) // HÄR BORDE RESULTATET SPARAS I OBJEKT
-}
-
-// ***** Prev pagination - Helper-function
-async function paginationPrev(page) {
-  const result = await fetchPagination(
-    currentSearch,
-    amountOfImagePerPage,
-    currentPageNumber > 1 ? currentPageNumber-- : currentPageNumber
-  );
-
-  displayPagination(result, currentPageNumber);
-}
-
-console.log(currentSearch);
 
 // BUTTONS
 
@@ -186,20 +146,65 @@ const updateBtn = () => {
   }
 };
 
+// **** display result - helper - function
+
+// LÄGG BILDER I IMG-ELEMENT
+function displayPagination(resultArray, page) {
+
+  const images = document.querySelectorAll(".pagination-sec_img");
+  const imagesResult = resultArray;
+
+  // CHECK IF EMPTY ----- Kolla om den är tom här??
+//  if (images.length === 0) {
+//   images.forEach((img, i) => {
+//     img.src = imagesResult[i];
+//   });
+//  }
+
+ images.forEach((img, i) => {
+  img.src = imagesResult[i];
+});
+
+}
+
+// ***** Next pagination - Helper-function
+async function paginationNext() {
+  const result = await fetchPagination( //----görs här en ny sökning??
+    currentSearch,
+    amountOfImagePerPage,
+    currentPageNumber++
+  );
+
+  savePages(result, currentPageNumber); //---kallar på funktion som sparar sidor i objektet
+  // displayPagination(result, currentPageNumber);
+}
+
+// ***** Prev pagination - Helper-function
+async function paginationPrev() {
+  const result = await fetchPagination( //---görs här en ny sökning??
+    currentSearch,
+    amountOfImagePerPage,
+    currentPageNumber > 1 ? currentPageNumber-- : currentPageNumber
+  );
+
+  savePages(result, currentPageNumber);
+  // displayPagination(result, currentPageNumber);
+}
+
 // BLÄDDRING VIA SIFFROR
 
-const obj = {
-  "page-1": [],
-  "page-2": [],
-  "page-3": [],
-  "page-4": [],
-  "page-5": [],
-};
+// const obj = {
+//   "page-1": [],
+//   "page-2": [],
+//   "page-3": [],
+//   "page-4": [],
+//   "page-5": [],
+// };
 
 numbers.forEach((number, numIndex) => {
   number.addEventListener("click", async (e) => {
     e.preventDefault();
-    currentStep = numIndex;
+    currentStep = numIndex + 1;
 
     document
       .querySelector(".pagination-sec_active")
@@ -215,22 +220,13 @@ numbers.forEach((number, numIndex) => {
       currentStep
     );
 
-    obj[`page-${currentStep}`] = result;
+    // obj[`page-${currentStep}`] = result;
 
-    displayPagination(result);
-    console.log(currentStep);
+    //HÄR BORDE DEN KOLLA OM DEN ÄR TOM ELLER INTE
+    savePages(result, currentStep);
+    console.log(`This is current step ${currentStep}`)
   });
 });
-
-// async function paginationEnd(page) { //skapa funktion till sista sida och första sidan på samma sätt
-//   const result = await fetchPagination(
-//     currentSearch,
-//     amountOfImagePerPage,
-//     currentPageNumber
-//   );
-
-//   displayPagination(result);
-// }
 
 
 //START and END BUTTONS
@@ -245,7 +241,7 @@ startBtn.addEventListener("click", async () => {
   endBtn.disabled = false;
   prevNext[1].disabled = false;
 
-  // await paginationEnd(currentStep+1)
+  savePages(result, currentStep);
 });
 
 
@@ -265,7 +261,7 @@ endBtn.addEventListener("click", async () => {
     currentStep
   );
 
-  displayPagination(result);
+  savePages(result, currentStep);
 });
 
 // PREV-NEXT BUTTONS
@@ -292,7 +288,7 @@ prevNext.forEach((button) => {
 
 //SPARA SÖKNING I OBJEKT
 
-const pages = {
+let pages = {
   "page1": [],
   "page2": [],
   "page3": [],
@@ -301,35 +297,44 @@ const pages = {
 };
 
 function savePages(result, page) {
-  
-  // const images = document.querySelectorAll(".pagination-sec_img");
-  // const imagesResult = result;
-
-  // images.forEach((img, i) => {
-  //   img.src = imagesResult[i]; 
-  // });
-
 
   if (page === 1 && pages.page1.length === 0) {
     pages.page1 = result;
-
+    displayPagination(result);
   } else if (page === 2 && pages.page2.length === 0) {
     pages.page2 = result;
+    displayPagination(result);
   } else if (page === 3 && pages.page3.length === 0) {
-    pages.page23 = result;
+    pages.page3 = result;
+    displayPagination(result);
   } else if (page === 4 && pages.page4.length === 0) {
     pages.page4 = result;
+    displayPagination(result);
   } else if (page === 5 && pages.page5.length === 0) {
     pages.page5 = result;
+    displayPagination(result);
   }
 
   console.log(`This is pages.page1.length: ${pages.page1.length}`)
-  console.log(`This is pages object: ${pages}`);
-  console.log(`This is current page: ${page}`)
-  
+console.log(`This is pages object: ${pages}`);
+console.log(`This is current page: ${page}`)
+
 }
 
-// console.log(pages)
+function rinsePages() {
+  pages = {
+    "page1": [],
+    "page2": [],
+    "page3": [],
+    "page4": [],
+    "page5": [],
+  };
+}
+
+console.log(`This is pages.page1.length: ${pages.page1.length}`)
+
+
+
 
 
 // SLUT PÅ MAYAS TEST KOD
