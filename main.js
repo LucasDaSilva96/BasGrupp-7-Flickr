@@ -64,7 +64,7 @@
 //       // TEST
 //       replaceImages(result); //Kalla på funktion för att ersätta bildkällorna med resultatet, hur göra detta med defaultläget??
 //       // TEST
-  
+
 //       SEARCH_PARAM = null;
 //     } catch (error) {
 //       toasts.push({
@@ -79,7 +79,6 @@
 //     }
 //   };
 // })
-
 
 //TEST
 
@@ -195,14 +194,13 @@ searchIcon.addEventListener("click", async () => {
 function displayPagination(resultArray) {
   // pagination_box.innerHTML = "";
 
-    const images = document.querySelectorAll(".pagination-sec_img");
-    const imagesResult = resultArray;
-  
-    images.forEach((img, i) => {
-      img.src = imagesResult[i];
-    })
-  
-  
+  const images = document.querySelectorAll(".pagination-sec_img");
+  const imagesResult = resultArray;
+
+  images.forEach((img, i) => {
+    img.src = imagesResult[i];
+  });
+
   // resultArray.map((el) => {
   //   const img = document.createElement("img");
   //   img.src = el;
@@ -219,8 +217,6 @@ async function paginationNext() {
 
   displayPagination(result);
 }
-
-
 
 // ***** Prev pagination - Helper-function
 async function paginationPrev() {
@@ -242,7 +238,7 @@ async function paginationPrev() {
 //         currentStep -= 1;
 //         await paginationPrev();
 //       }
-      
+
 //       numbers.forEach((number, numIndex) => {
 //         number.classList.toggle("pagination-sec_active", numIndex === currentStep)
 //         updateBtn();
@@ -278,16 +274,14 @@ function ScrollIntoView(nodeEl) {
   });
 }
 
-console.log(currentSearch)
-
-
+console.log(currentSearch);
 
 // BUTTONS
 
 const startBtn = document.querySelector("#pagination-sec_startBtn"),
-endBtn = document.querySelector("#pagination-sec_endBtn"),
-prevNext = document.querySelectorAll(".pagination-sec_prevNext"),
-numbers = document.querySelectorAll(".pagination-sec_link");
+  endBtn = document.querySelector("#pagination-sec_endBtn"),
+  prevNext = document.querySelectorAll(".pagination-sec_prevNext"),
+  numbers = document.querySelectorAll(".pagination-sec_link");
 
 let currentStep = 0;
 
@@ -304,35 +298,35 @@ const updateBtn = () => {
     startBtn.disabled = false;
     prevNext[0].disabled = false;
   }
-}
+};
 
 numbers.forEach((number, numIndex) => {
   number.addEventListener("click", (e) => {
     e.preventDefault();
     currentStep = numIndex;
 
-    document.querySelector(".pagination-sec_active").classList.remove("pagination-sec_active");
+    document
+      .querySelector(".pagination-sec_active")
+      .classList.remove("pagination-sec_active");
 
     number.classList.add("pagination-sec_active");
 
     updateBtn();
-        
+
     // searchImage(currentStep+1); // uppdatera funktionen för att hämta nästa sida - HUR?
     // console.log(currentStep)
-  })
-})
+  });
+});
 
 // prevNext.forEach((button) => {
 //     button.addEventListener("click", (e) => {
-//         currentStep += e.target.id === "next" ? 1 : -1; 
+//         currentStep += e.target.id === "next" ? 1 : -1;
 //         numbers.forEach((number, numIndex) => {
 //           number.classList.toggle("pagination-sec_active", numIndex === currentStep)
 //           updateBtn();
 //         })
 //       })
 // })
-
-
 
 // async function paginationEnd(page) { //skapa funktion till sista sida och första sidan på samma sätt
 //   const result = await fetchPagination(
@@ -345,7 +339,9 @@ numbers.forEach((number, numIndex) => {
 // }
 
 startBtn.addEventListener("click", async () => {
-  document.querySelector(".pagination-sec_active").classList.remove("pagination-sec_active");
+  document
+    .querySelector(".pagination-sec_active")
+    .classList.remove("pagination-sec_active");
   numbers[0].classList.add("pagination-sec_active");
   currentStep = 0;
   updateBtn();
@@ -353,16 +349,18 @@ startBtn.addEventListener("click", async () => {
   prevNext[1].disabled = false;
 
   // await paginationEnd(currentStep+1)
-})
+});
 
 endBtn.addEventListener("click", () => {
-  document.querySelector(".pagination-sec_active").classList.remove("pagination-sec_active");
+  document
+    .querySelector(".pagination-sec_active")
+    .classList.remove("pagination-sec_active");
   numbers[4].classList.add("pagination-sec_active");
   currentStep = 4;
   updateBtn();
   startBtn.disabled = false;
   prevNext[0].disabled = false;
-})
+});
 
 // IMAGES
 
@@ -381,17 +379,20 @@ endBtn.addEventListener("click", () => {
 
 prevNext.forEach((button) => {
   button.addEventListener("click", async (e) => {
-      if (e.target.id === "next") {
-        currentStep += 1;
-        await paginationNext();
-      } else if (e.target.id === "prev") {
-        currentStep -= 1;
-        await paginationPrev();
-      }
-      
-      numbers.forEach((number, numIndex) => {
-        number.classList.toggle("pagination-sec_active", numIndex === currentStep)
-        updateBtn();
-      })
-    })
-})
+    if (e.target.id === "next") {
+      currentStep += 1;
+      await paginationNext();
+    } else if (e.target.id === "prev") {
+      currentStep -= 1;
+      await paginationPrev();
+    }
+
+    numbers.forEach((number, numIndex) => {
+      number.classList.toggle(
+        "pagination-sec_active",
+        numIndex === currentStep
+      );
+      updateBtn();
+    });
+  });
+});
