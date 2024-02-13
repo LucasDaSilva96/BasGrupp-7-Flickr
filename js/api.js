@@ -27,6 +27,7 @@ export async function fetchInitialPhotosInfo(
     );
     const { photos } = await res.json();
     const { photo } = photos;
+    console.log(photo);
 
     toasts.push({
       title: "Fetch status",
