@@ -39,7 +39,165 @@ video {
 
 /* ************* Header ***********/
 
-/* *********************************/
+.intro {
+  padding: 0 20px;
+  width: 100%;
+  display: flex;
+  /* flex-direction: column;
+  align-items: center; */
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+
+  @media (max-width: 570px) {
+    justify-content: start;
+  }
+}
+
+header {
+  top: 0;
+  left: 0;
+  /* display: flex;
+  flex-direction: column;
+  align-items: center; */
+  margin-bottom: 0px; /* Justera efter behov */
+  padding: 0;
+  background-color: var(--primary-light-bg-color);
+  color: var(--primary-dark-bg-color);
+  padding: 20px;
+  & h1 {
+    font-family: "Jost", sans-serif;
+    font-size: 5rem;
+    margin: 0;
+    padding: 0;
+    @media (max-width: 700px) {
+      font-size: 3rem;
+    }
+  }
+}
+
+/* ***********Darkmode******************/
+
+.darkmode {
+  background: var(--primary-dark-bg-color);
+  color: var(--icon-dark-color);
+}
+
+.darkmode header {
+  background-color: var(--primary-dark-bg-color);
+  color: var(--icon-dark-color);
+}
+
+.dark-mode .dark-mode-toggle {
+  color: var(--icon-dark-color);
+}
+
+.subtitle {
+  max-width: 600px;
+}
+
+.btn-group {
+  margin: 2em 0;
+  display: relative;
+}
+
+.btn {
+  padding: 1em 2em;
+  text-decoration: none;
+  text-transform: uppercase;
+  border-radius: 5px;
+  position: relative;
+  display: inline-block;
+  line-height: 1;
+}
+
+.btn + .btn {
+  margin-left: 1em;
+}
+
+.btn-secondary {
+  background: var(--foreground);
+  color: var(--background);
+  border: currentColor solid 2px;
+}
+
+.btn-accent {
+  background: var(--clr-accent);
+  color: var(--foreground);
+}
+
+.btn::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border: var(--foreground) 2px solid;
+  left: -4px;
+  top: 4px;
+  border-radius: inherit;
+  z-index: -1;
+}
+
+.dark-mode-toggle {
+  position: absolute;
+  z-index: 100;
+  top: 1em;
+  right: 3em;
+  color: var(--foreground);
+  border: 2px solid currentColor;
+  padding: 4px;
+  background: transparent;
+  cursor: pointer;
+  border-radius: 5px;
+  width: 30px;
+  height: 30px;
+}
+
+/* För ljus bakgrund */
+.click-here {
+  /* SVG ikon */
+  width: 100px;
+  right: 1.5em;
+  position: absolute;
+  top: 3.2em;
+  right: 3.5rem;
+
+  /* Standardfärg */
+  color: black; /* Textfärg */
+  fill: black; /* Fyllfärg för ikonen */
+}
+
+.darkmode .search-sec {
+  background-color: var(--primary-dark-bg-color);
+}
+
+.darkmode .search-sec__search-box {
+  color: var(--icon-dark-color); /* Ändra textfärgen */
+}
+
+.darkmode .search-sec__search-box__input {
+  background-color: var(--icon-dark-color); /* Ändra bakgrundsfärgen */
+  color: var(--primary-dark-bg-color); /* Ändra textfärgen */
+}
+
+.darkmode .click-here {
+  color: var(--icon-dark-color); /* Ändra textfärgen */
+  fill: var(--icon-dark-color); /* Ändra fyllfärgen för SVG-ikonen */
+}
+
+.darkmode .pagination-sec {
+  background-color: var(--primary-dark-bg-color);
+}
+
+.darkmode .pagination-sec_link {
+  color: var(--icon-light-color);
+  background-color: var(--primary-dark-bg-color);
+}
+
+.darkmode .pagination-sec_link.pagination-sec_active {
+  color: var(--icon-dark-color);
+  background-color: var(--icon-light-color);
+}
 
 /* ************* Search-section ***********/
 .search-sec {
@@ -56,6 +214,7 @@ video {
     align-items: center;
     flex-wrap: wrap;
     gap: 20px;
+    padding: 0 20px;
     & .search-sec__search-box {
       position: relative;
 
@@ -90,6 +249,7 @@ video {
     }
   }
 }
+<<<<<<< HEAD
 
 /* *********************************/
 
@@ -255,3 +415,5 @@ video {
 /* ************* Overlay ***********/
 
 /* *********************************/
+=======
+>>>>>>> main
