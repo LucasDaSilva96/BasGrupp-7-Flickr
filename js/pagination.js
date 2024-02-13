@@ -148,20 +148,13 @@ const updateBtn = () => {
 
 // **** display result - helper - function
 
-// LÄGG BILDER I IMG-ELEMENT
+// ERSÄTTER BILDER I IMG-ELEMENTEN
 function displayPagination(resultArray, page) {
 
   const images = document.querySelectorAll(".pagination-sec_img");
   const imagesResult = resultArray;
 
-  // CHECK IF EMPTY ----- Kolla om den är tom här??
-//  if (images.length === 0) {
-//   images.forEach((img, i) => {
-//     img.src = imagesResult[i];
-//   });
-//  }
-
- images.forEach((img, i) => {
+  images.forEach((img, i) => {
   img.src = imagesResult[i];
 });
 
@@ -298,26 +291,33 @@ let pages = {
 
 function savePages(result, page) {
 
-  if (page === 1 && pages.page1.length === 0) {
-    pages.page1 = result;
-    displayPagination(result);
-  } else if (page === 2 && pages.page2.length === 0) {
-    pages.page2 = result;
-    displayPagination(result);
-  } else if (page === 3 && pages.page3.length === 0) {
-    pages.page3 = result;
-    displayPagination(result);
-  } else if (page === 4 && pages.page4.length === 0) {
-    pages.page4 = result;
-    displayPagination(result);
-  } else if (page === 5 && pages.page5.length === 0) {
-    pages.page5 = result;
-    displayPagination(result);
-  }
+  pages.forEach((page) => {
+    if (page.length == 0) {
+      page = result;
+      console.log(page)
+    }
+  })
 
-  console.log(`This is pages.page1.length: ${pages.page1.length}`)
-console.log(`This is pages object: ${pages}`);
-console.log(`This is current page: ${page}`)
+//   if (page === 1 && pages.page1.length === 0) {
+//     pages.page1 = result;
+//     displayPagination(result);
+//   } else if (page === 2 && pages.page2.length === 0) {
+//     pages.page2 = result;
+//     displayPagination(result);
+//   } else if (page === 3 && pages.page3.length === 0) {
+//     pages.page3 = result;
+//     displayPagination(result);
+//   } else if (page === 4 && pages.page4.length === 0) {
+//     pages.page4 = result;
+//     displayPagination(result);
+//   } else if (page === 5 && pages.page5.length === 0) {
+//     pages.page5 = result;
+//     displayPagination(result);
+//   }
+
+//   console.log(`This is pages.page1.length: ${pages.page1.length}`)
+// console.log(`This is pages object: ${pages}`);
+// console.log(`This is current page: ${page}`)
 
 }
 
