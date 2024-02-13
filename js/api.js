@@ -145,7 +145,7 @@ export async function fetchPagination(
   }
   try {
     const res = await fetch(
-      `https://api.flickr.com/services/rest?method=flickr.photos.search&api_key=${KEY}&text=${searchParam}&page=${currentPage}&per_page=${resultPerPage}&sort=relevance&format=json&nojsoncallback=1`
+      `https://api.flickr.com/services/rest?method=flickr.photos.search&api_key=${KEY}&orientation=landscape&text=${searchParam}&page=${currentPage}&per_page=${resultPerPage}&sort=relevance&format=json&nojsoncallback=1`
     );
     const { photos } = await res.json();
     const { photo } = photos;

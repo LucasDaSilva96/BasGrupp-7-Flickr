@@ -306,8 +306,10 @@ const updateBtn = () => {
   }
 }
 
+// BLÄDDRING VIA SIFFROR
+
 numbers.forEach((number, numIndex) => {
-  number.addEventListener("click", (e) => {
+  number.addEventListener("click", async (e) => {
     e.preventDefault();
     currentStep = numIndex;
 
@@ -316,9 +318,15 @@ numbers.forEach((number, numIndex) => {
     number.classList.add("pagination-sec_active");
 
     updateBtn();
-        
-    // searchImage(currentStep+1); // uppdatera funktionen för att hämta nästa sida - HUR?
-    // console.log(currentStep)
+
+    const result = await fetchPagination(
+          currentSearch,
+          amountOfImagePerPage,
+          currentStep
+    );
+
+    displayPagination(result);
+    console.log(currentStep)
   })
 })
 
@@ -355,13 +363,31 @@ startBtn.addEventListener("click", async () => {
   // await paginationEnd(currentStep+1)
 })
 
-endBtn.addEventListener("click", () => {
+// async function paginationNext() {
+//   const result = await fetchPagination(
+//     currentSearch,
+//     amountOfImagePerPage,
+//     currentPageNumber++
+//   );
+
+//   displayPagination(result);
+// }
+
+endBtn.addEventListener("click", async () => {
   document.querySelector(".pagination-sec_active").classList.remove("pagination-sec_active");
   numbers[4].classList.add("pagination-sec_active");
   currentStep = 4;
   updateBtn();
   startBtn.disabled = false;
   prevNext[0].disabled = false;
+
+  const result = await fetchPagination(
+        currentSearch,
+        amountOfImagePerPage,
+        currentStep
+      );
+    
+      displayPagination(result);
 })
 
 // IMAGES
@@ -377,7 +403,6 @@ endBtn.addEventListener("click", () => {
 
 // }
 
-// SLUT PÅ MAYAS TEST KOD
 
 prevNext.forEach((button) => {
   button.addEventListener("click", async (e) => {
@@ -395,3 +420,5 @@ prevNext.forEach((button) => {
       })
     })
 })
+
+// SLUT PÅ MAYAS TEST KOD

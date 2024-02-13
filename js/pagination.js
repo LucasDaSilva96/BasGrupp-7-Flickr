@@ -422,3 +422,14 @@ prevNext.forEach((button) => {
 })
 
 // SLUT PÅ MAYAS TEST KOD
+
+
+// const resultObj = {
+//     page1: "",
+//     page2: "",
+//     page3: "",
+//     page4: "",
+//     page5: ""
+//   }
+  
+//   result
