@@ -92,6 +92,7 @@ import Toasts from "./toast-notification/toast.js";
 
 // ********** Node-selection ***************
 const searchbar = document.querySelector(".search-sec__search-box__input");
+<<<<<<< HEAD
 const searchIcon = document.querySelector(
   ".search-sec__search-box__search-svg"
 );
@@ -100,6 +101,9 @@ const pagination_box = document.querySelector(".pagination-box");
 const prev_Button = document.getElementById("prev-btn");
 const next_button = document.getElementById("next-btn");
 const currentPage_Text = document.getElementById("current-page");
+=======
+const searchIcon = document.getElementById("search-btn");
+>>>>>>> main
 
 // ************ Global variables ***********
 let currentPageNumber = 1;
@@ -129,7 +133,10 @@ async function searchDefaultImages() {
       currentPageNumber,
       toasts
     );
+<<<<<<< HEAD
     displayPagination(result);
+=======
+>>>>>>> main
   } catch (error) {
     toasts.push({
       title: "Fetch status",
@@ -139,7 +146,8 @@ async function searchDefaultImages() {
       closeButton: false,
     });
   } finally {
-    searchbar.value = "";
+    searchbar.value = currentSearch;
+    searchbar.textContent = currentSearch;
   }
 }
 
@@ -153,9 +161,12 @@ async function searchImages(currentSearch, num_per_page, page_num, toasts) {
       page_num,
       toasts
     );
+<<<<<<< HEAD
 
     displayPagination(result);
     ScrollIntoView(pagination_section);
+=======
+>>>>>>> main
   } catch (error) {
     toasts.push({
       title: "Fetch status",
@@ -165,7 +176,12 @@ async function searchImages(currentSearch, num_per_page, page_num, toasts) {
       closeButton: false,
     });
   } finally {
+<<<<<<< HEAD
     searchbar.value = "";
+=======
+    searchbar.value = currentSearch;
+    searchbar.textContent = currentSearch;
+>>>>>>> main
   }
 }
 
@@ -180,6 +196,11 @@ searchbar.addEventListener("input", (e) => (currentSearch = e.target.value));
 
 // ******* Search - eventListener **
 searchIcon.addEventListener("click", async () => {
+<<<<<<< HEAD
+=======
+  currentPageNumber = 1;
+
+>>>>>>> main
   await searchImages(
     currentSearch,
     amountOfImagePerPage,
@@ -188,6 +209,7 @@ searchIcon.addEventListener("click", async () => {
   );
 });
 
+<<<<<<< HEAD
 // ************************* Example of pagination - (Not Best Practice) **************************
 
 // **** display result - helper - function
@@ -265,6 +287,8 @@ async function paginationPrev() {
 //   // currentPage_Text.textContent = currentPageNumber;
 // });
 
+=======
+>>>>>>> main
 // **** Scroll node-element-into-view function
 function ScrollIntoView(nodeEl) {
   return nodeEl.scrollIntoView({
@@ -273,6 +297,7 @@ function ScrollIntoView(nodeEl) {
     inline: "end",
   });
 }
+<<<<<<< HEAD
 
 console.log(currentSearch);
 
@@ -442,3 +467,5 @@ prevNext.forEach((button) => {
 //   }
   
 //   result
+=======
+>>>>>>> main

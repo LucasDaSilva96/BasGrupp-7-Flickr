@@ -51,25 +51,42 @@ video {
   justify-content: center;
   padding: 0 10px;
 
-  & .search-sec__search-box {
-    position: relative;
+  & .search-wrapper {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    & .search-sec__search-box {
+      position: relative;
 
-    & .search-sec__search-box__input {
-      min-width: 300px;
-      padding: 8px;
-      border-radius: 10px;
-      border: none;
-      text-align: center;
+      & .search-sec__search-box__input {
+        min-width: 300px;
+        padding: 8px;
+        border-radius: 10px;
+        border: none;
+        text-align: center;
+      }
+
+      & .search-sec__search-box__search-svg {
+        position: absolute;
+        right: 8px;
+        top: 3.8px;
+        background: transparent;
+        backdrop-filter: blur(20px);
+        fill: var(--primary-dark-bg-color);
+      }
     }
 
-    & .search-sec__search-box__search-svg {
-      position: absolute;
-      right: 8px;
-      top: 3.8px;
+    & button {
+      padding: 8px 15px;
+      border-radius: 10px;
+      border: none;
+      transition: all 0.3s linear;
       cursor: pointer;
-      background: transparent;
-      backdrop-filter: blur(20px);
-      fill: var(--primary-dark-bg-color);
+      &:hover {
+        background-color: var(--primary-dark-bg-color);
+        color: var(--icon-light-color);
+      }
     }
   }
 }
