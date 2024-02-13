@@ -95,6 +95,9 @@ searchbar.addEventListener("input", (e) => (currentSearch = e.target.value));
 
 // ******* Search - eventListener **
 searchIcon.addEventListener("click", async () => {
+  currentPageNumber = 1;
+  currentPage_Text.textContent = currentPageNumber;
+
   await searchImages(
     currentSearch,
     amountOfImagePerPage,
