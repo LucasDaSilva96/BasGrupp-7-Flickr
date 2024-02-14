@@ -80,7 +80,7 @@ async function searchDefaultImages() {
       currentPageNumber,
       toasts
     );
-
+    createImageSlides(result);
     divideAndSave(result); // MAYA: should save result in pages object, should be AWAIT?
     replaceImages(pages.page1); // MAYA: replace page 1 with result
   } catch (error) {
@@ -117,6 +117,7 @@ async function searchImages(currentSearch, num_per_page, page_num, toasts) {
     });
     currentPageNumber = 1;
     currentStep = 1;
+    createImageSlides(result);
     divideAndSave(result); // MAYA LAGT TILL: Divides the result of 60 in object with 5 pages
     replaceImages(pages.page1); // Replaces the first page with result
     scrollIntoView(pagination_section);
@@ -324,8 +325,8 @@ const updateBtn = () => {
 
 
 // Function to create slides with images
-async function createImageSlides() {
-  const imageUrls = await fetchPagination (currentSearch, 20, 1);
+async function createImageSlides(currentSearch) {
+  // const imageUrls = await fetchPagination (currentSearch, 20, 1);
   // Find the swiper-wrapper element in the document
   const swiperWrapper = document.querySelector('.swiper-wrapper');
 
@@ -339,7 +340,7 @@ async function createImageSlides() {
   swiperWrapper.innerHTML = '';
 
   // Loop through each URL in the array
-  imageUrls.forEach(url => {
+  currentSearch.forEach(url => {
       // Create a new div element for the slide
       const slideElement = document.createElement('div');
       slideElement.className = 'swiper-slide';
@@ -394,8 +395,6 @@ const swiper = new Swiper('.swiper', {
     el: '.swiper-scrollbar',
   },
 })};
-// Call the function with the image URLs array
-createImageSlides();
 
 
 

@@ -416,12 +416,13 @@ header {
 
 .swiper {
   width: 100%;
-  background-color: var(--primary-light-bg-color);
+  background-color: transparent;
   margin-bottom: 50px;
   margin-top: -10dvw;
 }
 
 .swiper-slide {
+  background-color: transparent;
   text-align: center;
   font-size: 18px;
   background: none;
