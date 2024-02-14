@@ -249,7 +249,6 @@ header {
     }
   }
 }
-<<<<<<< HEAD
 
 /* *********************************/
 
@@ -272,8 +271,10 @@ header {
 .pagination-sec_gallery {
   display: grid;
   grid-template-columns: repeat(4, minmax(auto, 276px));
+  grid-auto-rows: max-content;
   gap: 10px 15px;
   align-content: center;
+  justify-content: center;
   height: min-content;
   
 
@@ -289,15 +290,13 @@ header {
 }
 
 .pagination-sec_img {
-  max-height: 208px;
   border-radius: 8.79px;
-  
+  height: 200px;
 }
 
 .pagination-sec_nav{
   display: flex;
   width: 90%;
-  /* gap: 36px; */
   justify-content: space-evenly;
   align-items: center;
   padding: 20px;
@@ -415,5 +414,4 @@ header {
 /* ************* Overlay ***********/
 
 /* *********************************/
-=======
->>>>>>> main
+
