@@ -258,6 +258,7 @@ header {
 /* ************* Pagination-section ***********/
 
 .pagination-sec {
+  margin-top: 100px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -422,8 +423,6 @@ header {
 .swiper {
   width: 100%;
   background-color: transparent;
-  margin-bottom: 50px;
-  margin-top: -10dvw;
 }
 
 .swiper-slide {
