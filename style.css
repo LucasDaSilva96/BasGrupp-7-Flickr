@@ -268,13 +268,7 @@ header {
 }
 
 .swiper-slide img {
-  margin-top: auto;
-  display: flex;
+  display: block;
   border-radius: inherit;
-  justify-content: center;
-  align-items: center;
-  /* width: 100%;
-  height: auto%;*/
-
   object-fit: cover;
 }
