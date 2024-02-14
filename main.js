@@ -321,12 +321,11 @@ const updateBtn = () => {
 
 /******Carousel stuff */
 
-// // Placeholder for how you might instantiate and use the carousel
-const imageUrls = ['https://picsum.photos/id/12/367/267', 'https://picsum.photos/id/13/2500/1667', 'https://picsum.photos/id/14/367/267', 'https://picsum.photos/id/15/367/267', 'https://picsum.photos/id/16/367/267'];
 
 
 // Function to create slides with images
-function createImageSlides(urlArray) {
+async function createImageSlides() {
+  const imageUrls = await fetchPagination (currentSearch, 20, 1);
   // Find the swiper-wrapper element in the document
   const swiperWrapper = document.querySelector('.swiper-wrapper');
 
@@ -340,7 +339,7 @@ function createImageSlides(urlArray) {
   swiperWrapper.innerHTML = '';
 
   // Loop through each URL in the array
-  urlArray.forEach(url => {
+  imageUrls.forEach(url => {
       // Create a new div element for the slide
       const slideElement = document.createElement('div');
       slideElement.className = 'swiper-slide';
@@ -356,13 +355,6 @@ function createImageSlides(urlArray) {
       // Append the new slide to the swiper-wrapper
       swiperWrapper.appendChild(slideElement);
   });
-}
-
-// Call the function with the image URLs array
-createImageSlides(imageUrls);
-
-
-
 
 const swiper = new Swiper('.swiper', {
   // Optional parameters
@@ -398,4 +390,10 @@ const swiper = new Swiper('.swiper', {
   scrollbar: {
     el: '.swiper-scrollbar',
   },
-});
+})};
+// Call the function with the image URLs array
+createImageSlides();
+
+
+
+
