@@ -147,8 +147,8 @@ async function searchImages(currentSearch, num_per_page, page_num, toasts) {
       page_num,
       toasts
     );
-
     createImageSlides(result);
+    restartSlide();
     numbers.forEach((el, i) => {
       if (i === 0) {
         el.classList.add("pagination-sec_active");
@@ -392,4 +392,8 @@ function createImageSlides(currentSearch) {
     // Append the new slide to the swiper-wrapper
     swiperWrapper.appendChild(slideElement);
   });
+}
+
+function restartSlide() {
+  swiper.slideTo(0);
 }
