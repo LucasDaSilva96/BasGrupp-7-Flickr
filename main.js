@@ -319,7 +319,7 @@ const updateBtn = () => {
 };
 
 
-/******Carousel stuff */
+/******Carousel stuff ******************/
 
 
 
@@ -366,13 +366,16 @@ const swiper = new Swiper('.swiper', {
       centeredSlides: true,
       slidesPerView: 2,
       coverflowEffect: {
-        rotate: 0,
-        stretch: 0,
-        depth: 50,
-        modifier: 4,
+        rotate: -5,
+        stretch: 20,
+        depth: 200,
+        modifier: 3,
         slideShadows: true,
       },
-
+      autoplay: {
+        delay: 3000,
+        disableOnInteraction: false,
+      },
 
 
   // If we need pagination
