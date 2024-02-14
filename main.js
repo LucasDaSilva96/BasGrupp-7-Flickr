@@ -13,14 +13,15 @@ const startBtn = document.querySelector("#pagination-sec_startBtn"),
   prevNext = document.querySelectorAll(".pagination-sec_prevNext"),
   numbers = document.querySelectorAll(".pagination-sec_link"),
   images = document.querySelectorAll(".pagination-sec_img"); // <--- changed location to this
-
+const swiperWrapper = document.querySelector(".swiper-wrapper");
+const carousel_sec = document.querySelector(".corousel-sec");
 // ************ Global variables ***********
 // ---------------- Pagination object -----------------
 
 let currentPageNumber = 1;
 let currentStep = 1;
 const amountOfImagePerPage = 60; // ÄNDRA FRÅN 12
-let currentSearch = "Iphone";
+let currentSearch = "Beach";
 const toasts = new Toasts({
   offsetX: 20, // 20px
   offsetY: 20, // 20px
@@ -31,6 +32,45 @@ const toasts = new Toasts({
   dimOld: true, // Dim old notifications while the newest notification stays highlighted
   position: "top-center", // top-left | top-center | top-right | bottom-left | bottom-center | bottom-right
 });
+
+const swiper = new Swiper(".swiper", {
+  // Optional parameters
+  // direction: 'vertical',
+  loop: true,
+  // slidesPerView: 3,
+  effect: "coverflow",
+  grabCursor: true,
+  centeredSlides: true,
+  slidesPerView: 2,
+  coverflowEffect: {
+    rotate: -5,
+    stretch: 20,
+    depth: 200,
+    modifier: 3,
+    slideShadows: true,
+  },
+  autoplay: {
+    delay: 3000,
+    disableOnInteraction: false,
+  },
+
+  // If we need pagination
+  pagination: {
+    el: ".swiper-pagination",
+  },
+
+  // Navigation arrows
+  navigation: {
+    nextEl: ".swiper-button-next",
+    prevEl: ".swiper-button-prev",
+  },
+
+  // And if we need scrollbar
+  scrollbar: {
+    el: ".swiper-scrollbar",
+  },
+});
+
 // Kolla om 'darkMode' är sparad i localStorage
 let darkMode = localStorage.getItem("darkMode");
 
@@ -80,7 +120,7 @@ async function searchDefaultImages() {
       currentPageNumber,
       toasts
     );
-
+    createImageSlides(result);
     divideAndSave(result); // MAYA: should save result in pages object, should be AWAIT?
     replaceImages(pages.page1); // MAYA: replace page 1 with result
   } catch (error) {
@@ -108,6 +148,7 @@ async function searchImages(currentSearch, num_per_page, page_num, toasts) {
       toasts
     );
 
+    createImageSlides(result);
     numbers.forEach((el, i) => {
       if (i === 0) {
         el.classList.add("pagination-sec_active");
@@ -119,7 +160,7 @@ async function searchImages(currentSearch, num_per_page, page_num, toasts) {
     currentStep = 1;
     divideAndSave(result); // MAYA LAGT TILL: Divides the result of 60 in object with 5 pages
     replaceImages(pages.page1); // Replaces the first page with result
-    scrollIntoView(pagination_section);
+    scrollIntoView(carousel_sec);
   } catch (error) {
     toasts.push({
       title: "Fetch status",
@@ -159,8 +200,8 @@ searchIcon.addEventListener("click", async () => {
 function scrollIntoView(nodeEl) {
   return nodeEl.scrollIntoView({
     behavior: "smooth",
-    block: "end",
-    inline: "end",
+    block: "start",
+    inline: "start",
   });
 }
 
@@ -317,3 +358,38 @@ const updateBtn = () => {
     prevNext[0].disabled = false;
   }
 };
+
+/******Carousel stuff ******************/
+
+// Function to create slides with images
+function createImageSlides(currentSearch) {
+  // const imageUrls = await fetchPagination (currentSearch, 20, 1);
+  // Find the swiper-wrapper element in the document
+
+  // Check if swiperWrapper exists
+  if (!swiperWrapper) {
+    console.warn("swiper-wrapper not found.");
+    return;
+  }
+
+  // Clear existing content
+  swiperWrapper.innerHTML = "";
+
+  // Loop through each URL in the array
+  currentSearch.forEach((url) => {
+    // Create a new div element for the slide
+    const slideElement = document.createElement("div");
+    slideElement.className = "swiper-slide";
+
+    // Create an img element for the image
+    const imgElement = document.createElement("img");
+    imgElement.src = url;
+    imgElement.alt = "Image slide";
+
+    // Append the img to the slide div
+    slideElement.appendChild(imgElement);
+
+    // Append the new slide to the swiper-wrapper
+    swiperWrapper.appendChild(slideElement);
+  });
+}

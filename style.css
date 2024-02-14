@@ -27,6 +27,10 @@ body {
   font-family: "Jost", sans-serif;
   overflow-x: hidden;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+  padding-bottom: 20px;
 }
 
 img,
@@ -62,7 +66,7 @@ header {
   align-items: center; */
   margin-bottom: 0px; /* Justera efter behov */
   padding: 0;
-  background-color: var(--primary-light-bg-color);
+  background-color: transparent;
   color: var(--primary-dark-bg-color);
   padding: 20px;
   & h1 {
@@ -203,7 +207,7 @@ header {
 .search-sec {
   width: 100%;
   height: 100dvh;
-  background-color: var(--primary-light-bg-color);
+  background-color: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -223,6 +227,7 @@ header {
         padding: 8px;
         border-radius: 10px;
         border: none;
+        background-color: var(--primary-light-bg-color);
         text-align: center;
       }
 
@@ -250,12 +255,6 @@ header {
   }
 }
 
-/* *********************************/
-
-/* ************* Carousel-section ***********/
-
-/* *********************************/
-
 /* ************* Pagination-section ***********/
 
 .pagination-sec {
@@ -263,10 +262,8 @@ header {
   flex-direction: column;
   align-items: center;
   flex-wrap: wrap;
-  background-color: var(--primary-light-bg-color);
-
- } 
-
+  background-color: transparent;
+}
 
 .pagination-sec_gallery {
   display: grid;
@@ -276,16 +273,15 @@ header {
   align-content: center;
   justify-content: center;
   height: min-content;
-  
 
   @media screen and (max-width: 1000px) {
-    grid-template-columns: repeat(3, minmax(auto, 276px))
+    grid-template-columns: repeat(3, minmax(auto, 276px));
   }
   @media screen and (max-width: 900px) {
-    grid-template-columns: repeat(2, minmax(auto, 276px))
+    grid-template-columns: repeat(2, minmax(auto, 276px));
   }
   @media screen and (max-width: 600px) {
-    grid-template-columns: repeat(1, minmax(auto, 276px))
+    grid-template-columns: repeat(1, minmax(auto, 276px));
   }
 }
 
@@ -294,7 +290,7 @@ header {
   height: 200px;
 }
 
-.pagination-sec_nav{
+.pagination-sec_nav {
   display: flex;
   width: 90%;
   justify-content: space-evenly;
@@ -314,13 +310,12 @@ header {
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
-  
 
   &:hover {
     cursor: pointer;
   }
 
-  @media screen and (max-width: 900px) { 
+  @media screen and (max-width: 900px) {
     width: 80%;
   }
 }
@@ -333,7 +328,8 @@ header {
   background-image: url(images/arrow-left.svg);
   width: 25px;
 
-  &:active, &:hover {
+  &:active,
+  &:hover {
     background-image: url(images/arrow-left-active.svg);
   }
 
@@ -346,7 +342,8 @@ header {
   background-image: url(images/arrow-right.svg);
   width: 25px;
 
-  &:active, &:hover {
+  &:active,
+  &:hover {
     background-image: url(images/arrow-right-active.svg);
   }
 
@@ -359,7 +356,8 @@ header {
   background-image: url(images/darrow-left.svg);
   width: 40px;
 
-  &:active, &:hover {
+  &:active,
+  &:hover {
     background-image: url(images/darrow-left-active.svg);
   }
 
@@ -372,8 +370,8 @@ header {
   background-image: url(images/darrow-right.svg);
   width: 40px;
 
-
-  &:active, &:hover {
+  &:active,
+  &:hover {
     background-image: url(images/darrow-right-active.svg);
   }
 
@@ -396,12 +394,11 @@ header {
   width: 38px;
   text-align: center;
   margin: 0 2px;
-  
+
   &:hover {
     color: var(--icon-light-color);
     background-color: var(--icon-dark-color);
   }
-  
 }
 
 .pagination-sec_link.pagination-sec_active {
@@ -482,3 +479,39 @@ header {
   
 /* *********************************/
 
+/* ************* Carousel-section ***********/
+
+.corousel-sec {
+  padding-top: 150px;
+  min-height: 60dvh;
+}
+
+.swiper {
+  width: 100%;
+  background-color: transparent;
+  margin-bottom: 50px;
+  margin-top: -10dvw;
+}
+
+.swiper-slide {
+  background-color: transparent;
+  text-align: center;
+  font-size: 18px;
+  background: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  /* border-style: solid;
+  border-width: 1px;
+  border-color: #1d1c1c; */
+}
+
+.swiper-slide img {
+  display: block;
+  border-radius: inherit;
+  min-width: 100%;
+}
+
+/* *********************************/
