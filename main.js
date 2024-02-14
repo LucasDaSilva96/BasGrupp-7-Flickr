@@ -147,20 +147,23 @@ async function searchImages(currentSearch, num_per_page, page_num, toasts) {
       page_num,
       toasts
     );
-    restartSlide();
-    createImageSlides(result);
-    numbers.forEach((el, i) => {
-      if (i === 0) {
-        el.classList.add("pagination-sec_active");
-      } else {
-        el.classList.remove("pagination-sec_active");
-      }
-    });
-    currentPageNumber = 1;
-    currentStep = 1;
-    divideAndSave(result); // MAYA LAGT TILL: Divides the result of 60 in object with 5 pages
-    replaceImages(pages.page1); // Replaces the first page with result
-    scrollIntoView(carousel_sec);
+
+    if (result) {
+      restartSlide();
+      createImageSlides(result);
+      numbers.forEach((el, i) => {
+        if (i === 0) {
+          el.classList.add("pagination-sec_active");
+        } else {
+          el.classList.remove("pagination-sec_active");
+        }
+      });
+      currentPageNumber = 1;
+      currentStep = 1;
+      divideAndSave(result); // MAYA LAGT TILL: Divides the result of 60 in object with 5 pages
+      replaceImages(pages.page1); // Replaces the first page with result
+      scrollIntoView(carousel_sec);
+    }
   } catch (error) {
     toasts.push({
       title: "Fetch status",
