@@ -27,6 +27,10 @@
       href="./favicon_package_v0.16/safari-pinned-tab.svg"
       color="#5bbad5"
     />
+    <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+  />
     <meta name="msapplication-TileColor" content="#2b5797" />
     <meta name="theme-color" content="#000000" />
     <link rel="stylesheet" href="./toast-notification/notis.css" />
@@ -34,6 +38,7 @@
     <title>Just Flickr</title>
   </head>
   <body>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <!-- Dark-mode -->
     <div class="intro">
       <header>
@@ -138,7 +143,26 @@
       <!--  -->
 
       <!-- Picture carousel -->
-      <section class="corousel-sec"></section>
+      <section class="corousel-sec">
+
+        <!-- Slider main container -->
+        <div class="swiper">
+          <!-- Additional required wrapper -->
+          <div class="swiper-wrapper">
+            <!-- Slides -->
+
+          </div>
+          <!-- If we need pagination -->
+          <div class="swiper-pagination"></div>
+
+          <!-- If we need navigation buttons -->
+          <div class="swiper-button-prev"></div>
+          <div class="swiper-button-next"></div>
+
+          <!-- If we need scrollbar -->
+          <div class="swiper-scrollbar"></div>
+        </div>
+      </section>
       <!--  -->
       <!-- Pagination -->
       <section class="pagination-sec"></section>

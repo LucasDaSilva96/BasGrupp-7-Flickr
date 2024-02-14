@@ -138,3 +138,87 @@ function ScrollIntoView(nodeEl) {
     inline: "end",
   });
 }
+
+/******Carousel stuff */
+
+// Assuming this import is at the top of your main JavaScript file
+
+
+// // Placeholder for how you might instantiate and use the carousel
+const imageUrls = ['https://picsum.photos/id/12/367/267', 'https://picsum.photos/id/13/2500/1667', 'https://picsum.photos/id/14/367/267', 'https://picsum.photos/id/15/367/267', 'https://picsum.photos/id/16/367/267'];
+
+
+// Function to create slides with images
+function createImageSlides(urlArray) {
+  // Find the swiper-wrapper element in the document
+  const swiperWrapper = document.querySelector('.swiper-wrapper');
+
+  // Check if swiperWrapper exists
+  if (!swiperWrapper) {
+      console.warn('swiper-wrapper not found.');
+      return;
+  }
+
+  // Clear existing content
+  swiperWrapper.innerHTML = '';
+
+  // Loop through each URL in the array
+  urlArray.forEach(url => {
+      // Create a new div element for the slide
+      const slideElement = document.createElement('div');
+      slideElement.className = 'swiper-slide';
+      
+      // Create an img element for the image
+      const imgElement = document.createElement('img');
+      imgElement.src = url;
+      imgElement.alt = 'Image slide';
+      
+      // Append the img to the slide div
+      slideElement.appendChild(imgElement);
+      
+      // Append the new slide to the swiper-wrapper
+      swiperWrapper.appendChild(slideElement);
+  });
+}
+
+// Call the function with the image URLs array
+createImageSlides(imageUrls);
+
+
+
+
+const swiper = new Swiper('.swiper', {
+  // Optional parameters
+  // direction: 'vertical',
+  loop: true,
+  // slidesPerView: 3,
+  effect: "coverflow",
+      grabCursor: true,
+      centeredSlides: true,
+      slidesPerView: 2,
+      coverflowEffect: {
+        rotate: 0,
+        stretch: 0,
+        depth: 50,
+        modifier: 4,
+        slideShadows: true,
+      },
+
+
+
+  // If we need pagination
+  pagination: {
+    el: '.swiper-pagination',
+  },
+
+  // Navigation arrows
+  navigation: {
+    nextEl: '.swiper-button-next',
+    prevEl: '.swiper-button-prev',
+  },
+
+  // And if we need scrollbar
+  scrollbar: {
+    el: '.swiper-scrollbar',
+  },
+});

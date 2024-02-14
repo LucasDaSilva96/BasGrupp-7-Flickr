@@ -249,3 +249,32 @@ header {
     }
   }
 }
+
+
+.swiper {
+  width: 80dvw;
+  height: 60dvw;
+}
+
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+}
+
+.swiper-slide img {
+  margin-top: auto;
+  display: flex;
+  border-radius: inherit;
+  justify-content: center;
+  align-items: center;
+  /* width: 100%;
+  height: auto%;*/
+
+  object-fit: cover;
+}
