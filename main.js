@@ -8,24 +8,9 @@ const searchbar = document.querySelector(".search-sec__search-box__input");
 const searchIcon = document.getElementById("search-btn");
 const darkModeToggle = document.querySelector("#dark-mode-toggle");
 
-// --------------- Pagination-selection ---------------------
-const pagination_wrapper = document.querySelector(
-  ".pagination-sec-img-wrapper"
-);
-const prev_button = document.getElementById("prev-btn");
-const next_button = document.getElementById("next-btn");
-const page_display_nr = document.getElementById("display-nr");
-
 // ************ Global variables ***********
 // ---------------- Pagination object -----------------
-const PAGINATION_PAGE_OBJ = {
-  "page-1": [],
-  "page-2": [],
-  "page-3": [],
-  "page-4": [],
-  "page-5": [],
-};
-// -----------------------------------------------------
+
 let currentPageNumber = 1;
 const amountOfImagePerPage = 12;
 let currentSearch = "God morning";
@@ -161,53 +146,4 @@ function scrollIntoView(nodeEl) {
     block: "end",
     inline: "end",
   });
-}
-
-// ******************************* Pagination Example ************
-
-// Display images ↓
-function displayResult(result) {
-  result.forEach((imgUrl) => {
-    const img = document.createElement("img");
-    img.src = imgUrl;
-    pagination_wrapper.appendChild(img);
-  });
-}
-
-// Next page logic ↓
-next_button.addEventListener("click", async () => {
-  currentPageNumber =
-    currentPageNumber < 5 ? currentPageNumber + 1 : currentPageNumber;
-
-  next_button.disabled = true;
-  if (PAGINATION_PAGE_OBJ[`page-${currentPageNumber}`].length === 0) {
-    page_display_nr.textContent = "Loading...";
-    const result = await fetchPagination(
-      currentSearch,
-      amountOfImagePerPage,
-      currentPageNumber
-    );
-    PAGINATION_PAGE_OBJ[`page-${currentPageNumber}`] = result;
-  }
-  pagination_wrapper.innerHTML = "";
-  displayResult(PAGINATION_PAGE_OBJ[`page-${currentPageNumber}`]);
-  page_display_nr.textContent = currentPageNumber;
-  next_button.disabled = false;
-});
-
-// Previous page logic ↓
-prev_button.addEventListener("click", () => {
-  currentPageNumber =
-    currentPageNumber > 1 ? currentPageNumber - 1 : currentPageNumber;
-  pagination_wrapper.innerHTML = "";
-
-  displayResult(PAGINATION_PAGE_OBJ[`page-${currentPageNumber}`]);
-  page_display_nr.textContent = currentPageNumber;
-});
-
-// Clear PAGINATION_PAGE_OBJ function ↓
-function clearPaginationObj() {
-  for (const property in PAGINATION_PAGE_OBJ) {
-    PAGINATION_PAGE_OBJ[property] = [];
-  }
 }
