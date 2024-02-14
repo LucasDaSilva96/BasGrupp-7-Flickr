@@ -250,11 +250,7 @@ header {
   }
 }
 
-/* *********************************/
 
-/* ************* Carousel-section ***********/
-
-/* *********************************/
 
 /* ************* Pagination-section ***********/
 
@@ -415,3 +411,35 @@ header {
 
 /* *********************************/
 
+/* ************* Carousel-section ***********/
+
+
+.swiper {
+  width: 100%;
+  background-color: transparent;
+  margin-bottom: 50px;
+  margin-top: -10dvw;
+}
+
+.swiper-slide {
+  background-color: transparent;
+  text-align: center;
+  font-size: 18px;
+  background: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  /* border-style: solid;
+  border-width: 1px;
+  border-color: #1d1c1c; */
+}
+
+.swiper-slide img {
+  display: block;
+  border-radius: inherit;
+  min-width: 100%;
+}
+
+/* *********************************/
