@@ -263,13 +263,13 @@ numbers.forEach((number, numIndex) => {
     if (currentStep == 1) {
       // Skickar rätt sida till funktion (inte snyggt men funkar)
       replaceImages(pages.page1);
-    } else if (currentStep == 2) {
+    } else if (currentStep === 2) {
       replaceImages(pages.page2);
-    } else if (currentStep == 3) {
+    } else if (currentStep === 3) {
       replaceImages(pages.page3);
-    } else if (currentStep == 4) {
+    } else if (currentStep === 4) {
       replaceImages(pages.page4);
-    } else if (currentStep == 5) {
+    } else if (currentStep === 5) {
       replaceImages(pages.page5);
     }
   });
@@ -309,28 +309,28 @@ prevNext.forEach((button) => {
   button.addEventListener("click", async (e) => {
     if (e.target.id === "next") {
       currentStep = currentStep >= 4 ? 5 : currentStep + 1;
-      if (currentStep == 1) {
+      if (currentStep === 1) {
         replaceImages(pages.page1);
-      } else if (currentStep == 2) {
+      } else if (currentStep === 2) {
         replaceImages(pages.page2);
-      } else if (currentStep == 3) {
+      } else if (currentStep === 3) {
         replaceImages(pages.page3);
-      } else if (currentStep == 4) {
+      } else if (currentStep === 4) {
         replaceImages(pages.page4);
-      } else if (currentStep == 5) {
+      } else if (currentStep === 5) {
         replaceImages(pages.page5);
       }
     } else if (e.target.id === "prev") {
       currentStep = currentStep <= 2 ? 1 : currentStep - 1;
-      if (currentStep == 1) {
+      if (currentStep === 1) {
         replaceImages(pages.page1);
-      } else if (currentStep == 2) {
+      } else if (currentStep === 2) {
         replaceImages(pages.page2);
-      } else if (currentStep == 3) {
+      } else if (currentStep === 3) {
         replaceImages(pages.page3);
-      } else if (currentStep == 4) {
+      } else if (currentStep === 4) {
         replaceImages(pages.page4);
-      } else if (currentStep == 5) {
+      } else if (currentStep === 5) {
         replaceImages(pages.page5);
       }
     }
