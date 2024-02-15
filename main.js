@@ -1,6 +1,6 @@
 "use-strict"; // Strict mode
 // ********** Import ***************
-import { fetchInitialPhotosInfo, fetchPagination } from "./js/api.js";
+import { fetchInitialPhotosInfo } from "./js/api.js";
 import Toasts from "./toast-notification/toast.js";
 
 // ********** Node-selection ***************
@@ -14,13 +14,28 @@ const startBtn = document.querySelector("#pagination-sec_startBtn"),
   images = document.querySelectorAll(".pagination-sec_img"); // <--- changed location to this
 const swiperWrapper = document.querySelector(".swiper-wrapper");
 const carousel_sec = document.querySelector(".corousel-sec");
+const modal = document.querySelector(".modal");
+const modalItem = document.querySelector(".modal__content");
+const clickedImage = document.createElement("img");
 // ************ Global variables ***********
 // ---------------- Pagination object -----------------
+// Kolla om 'darkMode' är sparad i localStorage
+let darkMode = localStorage.getItem("darkMode");
+// 1. Ett tomt objekt för alla sidor
+let pages = {
+  page1: [], // <---- Default search result ------- IDÈ: Hämta 60 bilder från början
+  page2: [],
+  page3: [],
+  page4: [],
+  page5: [],
+};
 
 let currentPageNumber = 1;
 let currentStep = 1;
 const amountOfImagePerPage = 60; // ÄNDRA FRÅN 12
 let currentSearch = "Beach";
+let imgSrc;
+let selectedImage;
 const toasts = new Toasts({
   offsetX: 20, // 20px
   offsetY: 20, // 20px
@@ -69,9 +84,6 @@ const swiper = new Swiper(".swiper", {
     el: ".swiper-scrollbar",
   },
 });
-
-// Kolla om 'darkMode' är sparad i localStorage
-let darkMode = localStorage.getItem("darkMode");
 
 // ************ Global functions ***********
 const enableDarkMode = () => {
@@ -209,21 +221,8 @@ function scrollIntoView(nodeEl) {
 
 // ************************* Pagination  **************************
 
-// SELECTING DOM-ELEMENTS
-
-// GLOBAL VARIABLES
-
 // Sökresultatet hämtar 60 bildadresser
 // Dessa delas upp 12 arrayer i som fördelas på 5 sidor
-
-// 1. Ett tomt objekt för alla sidor
-let pages = {
-  page1: [], // <---- Default search result ------- IDÈ: Hämta 60 bilder från början
-  page2: [],
-  page3: [],
-  page4: [],
-  page5: [],
-};
 
 // 2. En funktion som sparar sökresultatet i objektet
 function divideAndSave(searchResult) {
@@ -259,17 +258,26 @@ numbers.forEach((number, numIndex) => {
 
     updateBtn(); // Uppdaterar sidan
 
-    if (currentStep == 1) {
-      // Skickar rätt sida till funktion (inte snyggt men funkar)
-      replaceImages(pages.page1);
-    } else if (currentStep === 2) {
-      replaceImages(pages.page2);
-    } else if (currentStep === 3) {
-      replaceImages(pages.page3);
-    } else if (currentStep === 4) {
-      replaceImages(pages.page4);
-    } else if (currentStep === 5) {
-      replaceImages(pages.page5);
+    switch (currentStep) {
+      case 1:
+        replaceImages(pages.page1);
+        break;
+      case 2:
+        replaceImages(pages.page2);
+        break;
+      case 3:
+        replaceImages(pages.page3);
+        break;
+      case 4:
+        replaceImages(pages.page4);
+        break;
+
+      case 5:
+        replaceImages(pages.page5);
+        break;
+
+      default:
+        return;
     }
   });
 });
@@ -308,29 +316,47 @@ prevNext.forEach((button) => {
   button.addEventListener("click", async (e) => {
     if (e.target.id === "next") {
       currentStep = currentStep >= 4 ? 5 : currentStep + 1;
-      if (currentStep === 1) {
-        replaceImages(pages.page1);
-      } else if (currentStep === 2) {
-        replaceImages(pages.page2);
-      } else if (currentStep === 3) {
-        replaceImages(pages.page3);
-      } else if (currentStep === 4) {
-        replaceImages(pages.page4);
-      } else if (currentStep === 5) {
-        replaceImages(pages.page5);
+      switch (currentStep) {
+        case 1:
+          replaceImages(pages.page1);
+          break;
+        case 2:
+          replaceImages(pages.page2);
+          break;
+        case 3:
+          replaceImages(pages.page3);
+          break;
+        case 4:
+          replaceImages(pages.page4);
+          break;
+        case 5:
+          replaceImages(pages.page5);
+          break;
+
+        default:
+          return;
       }
     } else if (e.target.id === "prev") {
       currentStep = currentStep <= 2 ? 1 : currentStep - 1;
-      if (currentStep === 1) {
-        replaceImages(pages.page1);
-      } else if (currentStep === 2) {
-        replaceImages(pages.page2);
-      } else if (currentStep === 3) {
-        replaceImages(pages.page3);
-      } else if (currentStep === 4) {
-        replaceImages(pages.page4);
-      } else if (currentStep === 5) {
-        replaceImages(pages.page5);
+      switch (currentStep) {
+        case 1:
+          replaceImages(pages.page1);
+          break;
+        case 2:
+          replaceImages(pages.page2);
+          break;
+        case 3:
+          replaceImages(pages.page3);
+          break;
+        case 4:
+          replaceImages(pages.page4);
+          break;
+        case 5:
+          replaceImages(pages.page5);
+          break;
+
+        default:
+          return;
       }
     }
 
@@ -401,13 +427,6 @@ function restartSlide() {
 }
 
 // ****************Overlay****************
-
-let imgSrc;
-let selectedImage;
-
-const modal = document.querySelector(".modal");
-const modalItem = document.querySelector(".modal__content");
-const clickedImage = document.createElement("img");
 
 //function that finds what image the user clicks on
 
