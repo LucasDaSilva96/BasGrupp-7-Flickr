@@ -7,7 +7,6 @@ import Toasts from "./toast-notification/toast.js";
 const searchbar = document.querySelector(".search-sec__search-box__input");
 const searchIcon = document.getElementById("search-btn");
 const darkModeToggle = document.querySelector("#dark-mode-toggle");
-const pagination_section = document.querySelector(".pagination-sec"); //MAYA ADDED CONST
 const startBtn = document.querySelector("#pagination-sec_startBtn"),
   endBtn = document.querySelector("#pagination-sec_endBtn"),
   prevNext = document.querySelectorAll(".pagination-sec_prevNext"),
